@@ -1,36 +1,834 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мой сайт</title>
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: #1a1a2e;
-            color: #4ade80;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-        }
-        h1 { font-size: 28px; margin: 0 0 12px; }
-        p  { color: #aaa; margin: 0 0 20px; font-size: 16px; }
-        img {
-            max-width: 90vw;
-            max-height: 60vh;
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Golden Spin Casino</title>
+<style>
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0; min-height: 100vh;
+    background: radial-gradient(ellipse at top, #1a0f2e 0%, #0a0514 60%, #000 100%);
+    color: #fff;
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    user-select: none;
+    overflow-x: hidden;
+  }
+
+  /* фон с "звёздами" */
+  body::before {
+    content: ""; position: fixed; inset: 0;
+    background-image:
+      radial-gradient(2px 2px at 20% 30%, rgba(255,215,0,0.4), transparent),
+      radial-gradient(2px 2px at 60% 70%, rgba(255,215,0,0.3), transparent),
+      radial-gradient(1px 1px at 40% 15%, #fff, transparent),
+      radial-gradient(1px 1px at 80% 40%, #fff, transparent),
+      radial-gradient(1px 1px at 10% 80%, #fff, transparent),
+      radial-gradient(1px 1px at 90% 90%, #fff, transparent);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 250px 250px, 250px 250px, 250px 250px;
+    animation: stars 60s linear infinite;
+    pointer-events: none; z-index: 0; opacity: 0.6;
+  }
+  @keyframes stars {
+    from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
+    to   { background-position: 550px 550px, -350px 350px, 250px 250px, -250px 250px, 250px -250px, -250px -250px; }
+  }
+
+  #app { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* ---------- HEADER ---------- */
+  header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 100%);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,215,0,0.15);
+  }
+  .logo {
+    font-size: 24px; font-weight: 900; letter-spacing: 1px;
+    background: linear-gradient(90deg, #ffd700, #ff8c00, #ffd700);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+    cursor: pointer;
+  }
+  @keyframes shine { to { background-position: 200% center; } }
+  .balance {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,215,0,0.1);
+    border: 1px solid rgba(255,215,0,0.4);
+    padding: 8px 16px; border-radius: 30px;
+    font-size: 18px; font-weight: 700; color: #ffd700;
+    box-shadow: 0 0 18px rgba(255,215,0,0.2) inset;
+  }
+
+  /* ---------- ЭКРАНЫ ---------- */
+  .screen { display: none; flex: 1; padding: 20px; }
+  .screen.active { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- МЕНЮ ---------- */
+  .menu-title {
+    font-size: 42px; font-weight: 900; text-align: center;
+    margin: 30px 0 8px;
+    background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px rgba(255,215,0,0.3);
+  }
+  .menu-sub { color: #aaa; margin-bottom: 40px; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; }
+
+  .games {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px; width: 100%; max-width: 900px;
+  }
+  .game-card {
+    background: linear-gradient(160deg, rgba(40,20,70,0.7), rgba(15,5,30,0.9));
+    border: 1px solid rgba(255,215,0,0.25);
+    border-radius: 20px; padding: 32px 20px; text-align: center;
+    cursor: pointer; transition: all 0.3s cubic-bezier(.2,.8,.3,1);
+    position: relative; overflow: hidden;
+  }
+  .game-card::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(255,215,0,0.15), transparent 70%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .game-card:hover { transform: translateY(-6px); border-color: #ffd700; box-shadow: 0 20px 50px rgba(255,215,0,0.25); }
+  .game-card:hover::before { opacity: 1; }
+  .game-card .icon { font-size: 64px; display: block; margin-bottom: 14px; filter: drop-shadow(0 0 12px rgba(255,215,0,0.5)); }
+  .game-card h3 { margin: 0 0 8px; font-size: 24px; color: #ffd700; letter-spacing: 1px; }
+  .game-card p { margin: 0; color: #999; font-size: 14px; }
+
+  /* ---------- ОБЩИЕ ЭЛЕМЕНТЫ ИГР ---------- */
+  .back-btn {
+    position: absolute; top: 16px; left: 16px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
+    color: #fff; padding: 8px 16px; border-radius: 30px; cursor: pointer;
+    font-size: 14px; transition: all 0.2s;
+  }
+  .back-btn:hover { background: rgba(255,215,0,0.15); border-color: #ffd700; color: #ffd700; }
+
+  .game-title {
+    font-size: 30px; font-weight: 800; margin: 20px 0 22px;
+    background: linear-gradient(90deg, #ffd700, #ff8c00);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .bet-row { display: flex; gap: 10px; align-items: center; justify-content: center; margin: 16px 0; flex-wrap: wrap; }
+  .bet-label { color: #aaa; font-size: 14px; letter-spacing: 1px; }
+  .bet-btn {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,215,0,0.3);
+    color: #ffd700; padding: 8px 16px; border-radius: 10px; cursor: pointer;
+    font-size: 15px; font-weight: 700; transition: all 0.2s;
+  }
+  .bet-btn.active { background: #ffd700; color: #111; box-shadow: 0 0 20px rgba(255,215,0,0.5); }
+  .bet-btn:hover { border-color: #ffd700; }
+
+  .action-btn {
+    background: linear-gradient(135deg, #ffd700, #ff8c00);
+    border: none; color: #1a0f2e; font-weight: 900;
+    padding: 16px 46px; border-radius: 50px; cursor: pointer;
+    font-size: 20px; letter-spacing: 2px; margin-top: 18px;
+    box-shadow: 0 10px 30px rgba(255,140,0,0.4), 0 0 0 4px rgba(255,215,0,0.1);
+    transition: all 0.2s;
+  }
+  .action-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,140,0,0.6), 0 0 0 4px rgba(255,215,0,0.2); }
+  .action-btn:active:not(:disabled) { transform: translateY(0); }
+  .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .result {
+    font-size: 22px; font-weight: 700; min-height: 32px; margin-top: 18px;
+    text-align: center; transition: all 0.3s;
+  }
+  .result.win { color: #4ade80; text-shadow: 0 0 20px rgba(74,222,128,0.6); animation: pop 0.4s; }
+  .result.lose { color: #ef4444; text-shadow: 0 0 20px rgba(239,68,68,0.6); animation: pop 0.4s; }
+  .result.jackpot { color: #ffd700; text-shadow: 0 0 30px rgba(255,215,0,0.9); font-size: 28px; animation: pop 0.6s; }
+  @keyframes pop { 0% { transform: scale(0.6); } 60% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+  /* ---------- СЛОТЫ ---------- */
+  .slots-machine {
+    background: linear-gradient(160deg, #2a1145, #150520);
+    border: 3px solid #ffd700;
+    border-radius: 24px; padding: 28px;
+    box-shadow: 0 0 60px rgba(255,215,0,0.25), inset 0 0 30px rgba(255,215,0,0.05);
+  }
+  .reels {
+    display: flex; gap: 14px; justify-content: center;
+    background: #0a0512; padding: 18px;
+    border-radius: 16px; border: 2px solid rgba(255,215,0,0.3);
+    position: relative;
+  }
+  .reel {
+    width: 88px;
+    height: 258px;          /* 3 × 86 — ровно 3 символа */
+    overflow: hidden; position: relative;
+    background: linear-gradient(180deg, #050208 0%, #150a20 50%, #050208 100%);
+    border-radius: 10px; border: 1px solid rgba(255,215,0,0.2);
+  }
+  .reel-strip { display: flex; flex-direction: column; }
+  .reel-strip .sym {
+    height: 86px; display: flex; align-items: center; justify-content: center;
+    font-size: 54px; line-height: 1;
+    filter: drop-shadow(0 0 8px rgba(255,215,0,0.4));
+  }
+  .reel.spinning .reel-strip { animation: spin 0.12s linear infinite; }
+  @keyframes spin { from { transform: translateY(0); } to { transform: translateY(-86px); } }
+
+  .win-line {
+    position: absolute; left: 0; right: 0; top: 50%; height: 2px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+    opacity: 0; transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .reels.win .win-line { opacity: 1; }
+
+  /* ---------- РУЛЕТКА ---------- */
+  .wheel-wrap { position: relative; width: 340px; height: 340px; margin: 10px 0; }
+  .wheel-pointer {
+    position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 14px solid transparent; border-right: 14px solid transparent;
+    border-top: 24px solid #ffd700; z-index: 5;
+    filter: drop-shadow(0 0 8px #ffd700);
+  }
+  .wheel {
+    width: 100%; height: 100%; border-radius: 50%;
+    border: 6px solid #ffd700;
+    box-shadow: 0 0 60px rgba(255,215,0,0.4), inset 0 0 30px rgba(0,0,0,0.6);
+    transition: transform 4s cubic-bezier(0.17, 0.67, 0.15, 1);
+    position: relative;
+  }
+  .wheel-center {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 60px; height: 60px; border-radius: 50%;
+    background: radial-gradient(circle, #ffd700, #b8860b);
+    border: 3px solid #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; color: #1a0f2e; font-size: 22px;
+    box-shadow: 0 0 20px rgba(255,215,0,0.7);
+    z-index: 3;
+  }
+
+  .bet-options { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 8px 0; }
+  .bet-opt {
+    padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight: 700;
+    border: 2px solid transparent; transition: all 0.2s; font-size: 15px;
+  }
+  .bet-opt.red { background: #dc2626; color: #fff; }
+  .bet-opt.black { background: #1f1f1f; color: #fff; border-color: #444; }
+  .bet-opt.green { background: #16a34a; color: #fff; }
+  .bet-opt.selected { border-color: #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.6); transform: scale(1.05); }
+
+  /* ---------- БЛЭКДЖЕК ---------- */
+  .bj-table {
+    background: radial-gradient(ellipse at center, #0f5132 0%, #052e1b 100%);
+    border: 3px solid #ffd700; border-radius: 24px;
+    padding: 24px; width: 100%; max-width: 620px;
+    box-shadow: 0 0 60px rgba(255,215,0,0.2), inset 0 0 40px rgba(0,0,0,0.5);
+  }
+  .bj-hand { margin-bottom: 18px; }
+  .bj-hand-label { font-size: 14px; color: #ffd700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
+  .bj-cards { display: flex; gap: 8px; flex-wrap: wrap; min-height: 100px; align-items: center; }
+  .card {
+    width: 66px; height: 96px; border-radius: 8px;
+    background: linear-gradient(135deg, #fff 0%, #eee 100%);
+    color: #111; display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 6px; font-weight: 800; position: relative;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    animation: dealCard 0.4s ease;
+    border: 1px solid #ccc;
+  }
+  @keyframes dealCard { from { transform: translateY(-80px) rotate(-15deg); opacity: 0; } to { transform: none; opacity: 1; } }
+  .card.red { color: #dc2626; }
+  .card .top { align-self: flex-start; font-size: 15px; line-height: 1; }
+  .card .bottom { align-self: flex-end; font-size: 15px; line-height: 1; transform: rotate(180deg); }
+  .card .center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 34px; }
+  .card.back {
+    background: repeating-linear-gradient(45deg, #1e3a8a 0 8px, #3b82f6 8px 16px);
+    color: transparent; border-color: #ffd700;
+  }
+  .card.back::after {
+    content: "🎰"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-size: 30px; color: #ffd700;
+  }
+  .bj-score { font-size: 18px; color: #fff; margin-top: 8px; font-weight: 700; }
+  .bj-actions { display: flex; gap: 12px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+  .bj-actions .action-btn { padding: 12px 30px; font-size: 16px; margin-top: 0; }
+
+  /* ---------- КОНФЕТТИ ---------- */
+  .confetti {
+    position: fixed; width: 10px; height: 10px; z-index: 100;
+    pointer-events: none; border-radius: 2px;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ---------- АДАПТИВ ---------- */
+  @media (max-width: 500px) {
+    .logo { font-size: 18px; }
+    .balance { font-size: 15px; padding: 6px 12px; }
+    .menu-title { font-size: 32px; }
+    .reel { width: 72px; height: 225px; }        /* 3 × 75 */
+    .reel-strip .sym { height: 75px; font-size: 46px; }
+    @keyframes spin { from { transform: translateY(0); } to { transform: translateY(-75px); } }
+    .wheel-wrap { width: 280px; height: 280px; }
+    .action-btn { padding: 14px 34px; font-size: 17px; }
+    .card { width: 56px; height: 82px; }
+    .card .center { font-size: 28px; }
+  }
+</style>
 </head>
 <body>
-    <h1>Привет с телефона! 📱</h1>
-    <p>.</p>
-    <img src="https://i.ytimg.com/vi/N1TZiMASZyw/maxresdefault.jpg" alt="Превью видео">
+
+<div id="app">
+
+  <header>
+    <div class="logo" onclick="showScreen('menu')">🎰 GOLDEN SPIN</div>
+    <div class="balance">💰 <span id="balanceVal">1000</span></div>
+  </header>
+
+  <!-- ========== МЕНЮ ========== -->
+  <div class="screen active" id="menu">
+    <h1 class="menu-title">Добро пожаловать</h1>
+    <div class="menu-sub">Выберите игру</div>
+    <div class="games">
+      <div class="game-card" onclick="openGame('slots')">
+        <span class="icon">🎰</span>
+        <h3>Слоты</h3>
+        <p>Крутите барабаны и срывайте куш</p>
+      </div>
+      <div class="game-card" onclick="openGame('roulette')">
+        <span class="icon">🎡</span>
+        <h3>Рулетка</h3>
+        <p>Ставьте на цвет — испытайте удачу</p>
+      </div>
+      <div class="game-card" onclick="openGame('blackjack')">
+        <span class="icon">🃏</span>
+        <h3>Блэкджек</h3>
+        <p>Наберите 21 и обыграйте дилера</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== СЛОТЫ ========== -->
+  <div class="screen" id="slots">
+    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
+    <h2 class="game-title">🎰 Слоты</h2>
+    <div class="bet-row">
+      <span class="bet-label">Ставка:</span>
+      <button class="bet-btn" data-bet="10">10</button>
+      <button class="bet-btn active" data-bet="50">50</button>
+      <button class="bet-btn" data-bet="100">100</button>
+      <button class="bet-btn" data-bet="250">250</button>
+    </div>
+    <div class="slots-machine">
+      <div class="reels" id="reels">
+        <div class="reel"><div class="reel-strip"></div></div>
+        <div class="reel"><div class="reel-strip"></div></div>
+        <div class="reel"><div class="reel-strip"></div></div>
+        <div class="win-line"></div>
+      </div>
+    </div>
+    <button class="action-btn" id="spinBtn">КРУТИТЬ</button>
+    <div class="result" id="slotsResult"></div>
+  </div>
+
+  <!-- ========== РУЛЕТКА ========== -->
+  <div class="screen" id="roulette">
+    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
+    <h2 class="game-title">🎡 Рулетка</h2>
+    <div class="bet-row">
+      <span class="bet-label">Ставка:</span>
+      <button class="bet-btn" data-rbet="10">10</button>
+      <button class="bet-btn active" data-rbet="50">50</button>
+      <button class="bet-btn" data-rbet="100">100</button>
+    </div>
+    <div class="wheel-wrap">
+      <div class="wheel-pointer"></div>
+      <canvas class="wheel" id="wheelCanvas" width="680" height="680"></canvas>
+      <div class="wheel-center">GO</div>
+    </div>
+    <div class="bet-options" id="rouletteBets">
+      <div class="bet-opt red" data-bet="red">КРАСНОЕ ×2</div>
+      <div class="bet-opt black" data-bet="black">ЧЁРНОЕ ×2</div>
+      <div class="bet-opt green" data-bet="green">ЗЕРО ×14</div>
+    </div>
+    <button class="action-btn" id="spinRouletteBtn" disabled>КРУТИТЬ</button>
+    <div class="result" id="rouletteResult"></div>
+  </div>
+
+  <!-- ========== БЛЭКДЖЕК ========== -->
+  <div class="screen" id="blackjack">
+    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
+    <h2 class="game-title">🃏 Блэкджек</h2>
+    <div class="bet-row">
+      <span class="bet-label">Ставка:</span>
+      <button class="bet-btn" data-bjbet="10">10</button>
+      <button class="bet-btn active" data-bjbet="50">50</button>
+      <button class="bet-btn" data-bjbet="100">100</button>
+    </div>
+    <div class="bj-table">
+      <div class="bj-hand">
+        <div class="bj-hand-label">Дилер</div>
+        <div class="bj-cards" id="dealerCards"></div>
+        <div class="bj-score" id="dealerScore"></div>
+      </div>
+      <div class="bj-hand">
+        <div class="bj-hand-label">Вы</div>
+        <div class="bj-cards" id="playerCards"></div>
+        <div class="bj-score" id="playerScore"></div>
+      </div>
+      <div class="bj-actions" id="bjActions">
+        <button class="action-btn" id="bjStartBtn">НАЧАТЬ</button>
+        <button class="action-btn" id="bjHitBtn" style="display:none">ВЗЯТЬ</button>
+        <button class="action-btn" id="bjStandBtn" style="display:none">ХВАТИТ</button>
+      </div>
+    </div>
+    <div class="result" id="bjResult"></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   БАЛАНС И ОБЩЕЕ
+   ============================================================ */
+let balance = parseInt(localStorage.getItem('casino_balance') || '1000', 10);
+const balanceEl = document.getElementById('balanceVal');
+
+function updateBalance() {
+  if (balance < 0) balance = 0;
+  balanceEl.textContent = balance;
+  localStorage.setItem('casino_balance', balance);
+}
+
+function changeBalance(delta) {
+  balance += delta;
+  updateBalance();
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'slots') renderReels(slotsState.current, false);
+}
+
+function openGame(id) { showScreen(id); if (id === 'roulette') drawWheel(); }
+
+/* ============================================================
+   ЗВУК
+   ============================================================ */
+let audioCtx = null;
+function beep(freq, dur, type = 'sine', vol = 0.08) {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type; o.frequency.value = freq;
+    g.gain.value = vol;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+    o.stop(audioCtx.currentTime + dur);
+  } catch (e) {}
+}
+function winSound() { beep(660, 0.12); setTimeout(() => beep(880, 0.12), 100); setTimeout(() => beep(1100, 0.2), 200); }
+function loseSound() { beep(220, 0.2, 'sawtooth', 0.05); }
+function jackpotSound() {
+  [523,659,784,1046,1318].forEach((f,i) => setTimeout(() => beep(f, 0.2), i*90));
+}
+
+/* ============================================================
+   КОНФЕТТИ
+   ============================================================ */
+function confetti() {
+  const colors = ['#ffd700','#ff8c00','#ff4444','#4ade80','#4facfe','#ffffff'];
+  for (let i = 0; i < 60; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.top = '-20px';
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.animation = `fall ${2 + Math.random() * 2}s linear ${Math.random() * 0.4}s forwards`;
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4500);
+  }
+}
+
+/* ============================================================
+   СЛОТЫ
+   ============================================================ */
+const SYMBOLS = ['🍒','🍋','🍊','🔔','💎','7️⃣'];
+const slotsState = {
+  current: [0, 1, 2],
+  bet: 50,
+  spinning: false
+};
+
+function renderReels(positions, spinning) {
+  const reels = document.querySelectorAll('#reels .reel');
+  reels.forEach((reel, i) => {
+    const strip = reel.querySelector('.reel-strip');
+    strip.innerHTML = '';
+    // Показываем 3 символа: центральный + верхний + нижний
+    const idx = positions[i];
+    const seq = [
+      (idx - 1 + SYMBOLS.length) % SYMBOLS.length,
+      idx,
+      (idx + 1) % SYMBOLS.length
+    ];
+    seq.forEach(s => {
+      const d = document.createElement('div');
+      d.className = 'sym';
+      d.textContent = SYMBOLS[s];
+      strip.appendChild(d);
+    });
+    // Сдвигаем к центральному символу (он будет вторым в окне)
+    strip.style.transform = 'translateY(-86px)';
+    reel.classList.toggle('spinning', spinning);
+  });
+}
+
+function spinSlots() {
+  if (slotsState.spinning) return;
+  if (balance < slotsState.bet) { showResult('slotsResult', 'Недостаточно фишек!', 'lose'); return; }
+
+  slotsState.spinning = true;
+  document.getElementById('spinBtn').disabled = true;
+  changeBalance(-slotsState.bet);
+  document.getElementById('slotsResult').textContent = '';
+  document.querySelector('#reels').classList.remove('win');
+
+  document.querySelectorAll('#reels .reel').forEach(r => r.classList.add('spinning'));
+
+  const final = [0,0,0];
+  const stops = [700, 1100, 1500];
+  stops.forEach((delay, i) => {
+    setTimeout(() => {
+      const reel = document.querySelectorAll('#reels .reel')[i];
+      reel.classList.remove('spinning');
+      final[i] = Math.floor(Math.random() * SYMBOLS.length);
+      slotsState.current[i] = final[i];
+      renderReels(slotsState.current, false);
+      beep(500 + i * 150, 0.08);
+    }, delay);
+  });
+
+  setTimeout(() => {
+    slotsState.spinning = false;
+    document.getElementById('spinBtn').disabled = false;
+    checkSlotsWin(final);
+  }, 1700);
+}
+
+function checkSlotsWin(pos) {
+  const [a, b, c] = pos.map(i => SYMBOLS[i]);
+  let win = 0, msg = '', type = '';
+
+  if (a === b && b === c) {
+    if (a === '7️⃣') { win = slotsState.bet * 20; msg = 'ДЖЕКПОТ! 7️⃣7️⃣7️⃣ × 20'; type = 'jackpot'; jackpotSound(); confetti(); }
+    else if (a === '💎') { win = slotsState.bet * 10; msg = '💎 × 10!'; type = 'jackpot'; jackpotSound(); confetti(); }
+    else { win = slotsState.bet * 5; msg = `${a}${b}${c} — совпадение × 5!`; type = 'win'; winSound(); }
+  } else if (a === b || b === c || a === c) {
+    win = slotsState.bet * 2;
+    msg = 'Два совпадения — × 2!';
+    type = 'win'; winSound();
+  } else {
+    msg = 'Не повезло — попробуйте снова';
+    type = 'lose'; loseSound();
+  }
+
+  if (win > 0) {
+    changeBalance(win);
+    document.querySelector('#reels').classList.add('win');
+    showResult('slotsResult', msg + ` (+${win})`, type);
+  } else {
+    showResult('slotsResult', msg, type);
+  }
+}
+
+function showResult(id, text, type) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'result ' + (type || '');
+}
+
+document.querySelectorAll('[data-bet]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-bet]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    slotsState.bet = parseInt(btn.dataset.bet, 10);
+  });
+});
+document.getElementById('spinBtn').addEventListener('click', spinSlots);
+
+/* ============================================================
+   РУЛЕТКА
+   ============================================================ */
+const WHEEL = [
+  {n:0,  color:'green'},
+  {n:32, color:'red'},{n:15, color:'black'},{n:19, color:'red'},{n:4, color:'black'},
+  {n:21, color:'red'},{n:2,  color:'black'},{n:25, color:'red'},{n:17, color:'black'},
+  {n:34, color:'red'},{n:6,  color:'black'},{n:27, color:'red'},{n:13, color:'black'},
+  {n:36, color:'red'},{n:11, color:'black'},{n:30, color:'red'},{n:8,  color:'black'},
+  {n:23, color:'red'},{n:10, color:'black'},{n:5,  color:'red'},{n:24, color:'black'},
+  {n:16, color:'red'},{n:33, color:'black'},{n:1,  color:'red'},{n:20, color:'black'},
+  {n:14, color:'red'},{n:31, color:'black'},{n:9,  color:'red'},{n:22, color:'black'},
+  {n:18, color:'red'},{n:29, color:'black'},{n:7,  color:'red'},{n:28, color:'black'},
+  {n:12, color:'red'},{n:35, color:'black'},{n:3,  color:'red'},{n:26, color:'black'}
+];
+
+let rouletteBet = null;
+let rouletteBetAmount = 50;
+let rouletteSpinning = false;
+let wheelRotation = 0;
+
+function drawWheel() {
+  const canvas = document.getElementById('wheelCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W / 2, cy = H / 2;
+  const r = W / 2 - 8;
+  const seg = (Math.PI * 2) / WHEEL.length;
+
+  ctx.clearRect(0, 0, W, H);
+
+  WHEEL.forEach((s, i) => {
+    const start = i * seg - Math.PI / 2;
+    const end = start + seg;
+
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, r, start, end);
+    ctx.closePath();
+
+    if (s.color === 'red') ctx.fillStyle = '#dc2626';
+    else if (s.color === 'black') ctx.fillStyle = '#111';
+    else ctx.fillStyle = '#16a34a';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,215,0,0.5)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(start + seg / 2);
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#fff';
+    ctx.font = 'bold 26px Arial';
+    ctx.fillText(s.n, r - 18, 9);
+    ctx.restore();
+  });
+}
+
+function spinRoulette() {
+  if (rouletteSpinning || !rouletteBet) return;
+  if (balance < rouletteBetAmount) { showResult('rouletteResult', 'Недостаточно фишек!', 'lose'); return; }
+
+  rouletteSpinning = true;
+  changeBalance(-rouletteBetAmount);
+  document.getElementById('spinRouletteBtn').disabled = true;
+  document.getElementById('rouletteResult').textContent = '';
+
+  const resultIdx = Math.floor(Math.random() * WHEEL.length);
+  const result = WHEEL[resultIdx];
+
+  const segDeg = 360 / WHEEL.length;
+  const targetDeg = 360 * 5 + (360 - resultIdx * segDeg);
+  wheelRotation += targetDeg;
+
+  const wheelEl = document.getElementById('wheelCanvas');
+  wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
+
+  let ticks = 0;
+  const tickInt = setInterval(() => { beep(1200, 0.02, 'square', 0.03); if (++ticks > 30) clearInterval(tickInt); }, 130);
+
+  setTimeout(() => {
+    clearInterval(tickInt);
+    rouletteSpinning = false;
+    document.getElementById('spinRouletteBtn').disabled = false;
+    checkRouletteWin(result);
+  }, 4100);
+}
+
+function checkRouletteWin(result) {
+  let win = 0, msg = '', type = '';
+
+  if (rouletteBet === 'red' && result.color === 'red') { win = rouletteBetAmount * 2; msg = `Выпало ${result.n} — КРАСНОЕ. +${win}`; type = 'win'; }
+  else if (rouletteBet === 'black' && result.color === 'black') { win = rouletteBetAmount * 2; msg = `Выпало ${result.n} — ЧЁРНОЕ. +${win}`; type = 'win'; }
+  else if (rouletteBet === 'green' && result.color === 'green') { win = rouletteBetAmount * 14; msg = `ЗЕРО! ${result.n} — × 14. +${win}`; type = 'jackpot'; confetti(); }
+  else { msg = `Выпало ${result.n} (${result.color === 'red' ? 'красное' : result.color === 'black' ? 'чёрное' : 'зеро'}) — не угадали`; type = 'lose'; }
+
+  if (win > 0) {
+    changeBalance(win);
+    if (type === 'jackpot') jackpotSound(); else winSound();
+    showResult('rouletteResult', msg, type);
+  } else {
+    loseSound();
+    showResult('rouletteResult', msg, type);
+  }
+}
+
+document.querySelectorAll('[data-rbet]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-rbet]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    rouletteBetAmount = parseInt(btn.dataset.rbet, 10);
+  });
+});
+document.querySelectorAll('#rouletteBets .bet-opt').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#rouletteBets .bet-opt').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    rouletteBet = btn.dataset.bet;
+    document.getElementById('spinRouletteBtn').disabled = false;
+    beep(700, 0.06);
+  });
+});
+document.getElementById('spinRouletteBtn').addEventListener('click', spinRoulette);
+
+/* ============================================================
+   БЛЭКДЖЕК
+   ============================================================ */
+let bjState = {
+  deck: [],
+  player: [],
+  dealer: [],
+  bet: 50,
+  active: false
+};
+
+function newDeck() {
+  const suits = ['♠','♥','♦','♣'];
+  const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+  const deck = [];
+  suits.forEach(s => ranks.forEach(r => deck.push({s, r})));
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  return deck;
+}
+
+function cardValue(card) {
+  if (['J','Q','K'].includes(card.r)) return 10;
+  if (card.r === 'A') return 11;
+  return parseInt(card.r, 10);
+}
+
+function handScore(hand) {
+  let sum = 0, aces = 0;
+  hand.forEach(c => { sum += cardValue(c); if (c.r === 'A') aces++; });
+  while (sum > 21 && aces > 0) { sum -= 10; aces--; }
+  return sum;
+}
+
+function cardHTML(card, hidden = false) {
+  if (hidden) return `<div class="card back"></div>`;
+  const red = ['♥','♦'].includes(card.s);
+  return `<div class="card ${red ? 'red' : ''}">
+    <div class="top">${card.r}<br>${card.s}</div>
+    <div class="center">${card.s}</div>
+    <div class="bottom">${card.r}<br>${card.s}</div>
+  </div>`;
+}
+
+function renderBlackjack(hideDealer = true) {
+  const dealerEl = document.getElementById('dealerCards');
+  const playerEl = document.getElementById('playerCards');
+  dealerEl.innerHTML = bjState.dealer.map((c, i) => cardHTML(c, hideDealer && i === 1)).join('');
+  playerEl.innerHTML = bjState.player.map(c => cardHTML(c)).join('');
+
+  document.getElementById('playerScore').textContent = bjState.player.length ? `Очки: ${handScore(bjState.player)}` : '';
+  if (bjState.dealer.length) {
+    if (hideDealer) {
+      document.getElementById('dealerScore').textContent = `Очки: ${cardValue(bjState.dealer[0])} + ?`;
+    } else {
+      document.getElementById('dealerScore').textContent = `Очки: ${handScore(bjState.dealer)}`;
+    }
+  } else {
+    document.getElementById('dealerScore').textContent = '';
+  }
+}
+
+function startBlackjack() {
+  if (balance < bjState.bet) { showResult('bjResult', 'Недостаточно фишек!', 'lose'); return; }
+  changeBalance(-bjState.bet);
+  bjState.deck = newDeck();
+  bjState.player = [bjState.deck.pop(), bjState.deck.pop()];
+  bjState.dealer = [bjState.deck.pop(), bjState.deck.pop()];
+  bjState.active = true;
+  renderBlackjack(true);
+  showResult('bjResult', '', '');
+
+  document.getElementById('bjStartBtn').style.display = 'none';
+  document.getElementById('bjHitBtn').style.display = '';
+  document.getElementById('bjStandBtn').style.display = '';
+
+  beep(600, 0.08); setTimeout(() => beep(800, 0.08), 100);
+}
+
+function bjHit() {
+  if (!bjState.active) return;
+  bjState.player.push(bjState.deck.pop());
+  renderBlackjack(true);
+  beep(700, 0.06);
+  if (handScore(bjState.player) > 21) {
+    endBlackjack('lose', 'Перебор! У вас больше 21.');
+  }
+}
+
+function bjStand() {
+  if (!bjState.active) return;
+  while (handScore(bjState.dealer) < 17) {
+    bjState.dealer.push(bjState.deck.pop());
+  }
+  renderBlackjack(false);
+
+  const p = handScore(bjState.player);
+  const d = handScore(bjState.dealer);
+  let msg, type;
+
+  if (d > 21) { msg = `Дилер перебрал (${d}). Вы выиграли +${bjState.bet * 2}!`; type = 'win'; changeBalance(bjState.bet * 2); }
+  else if (p > d) { msg = `Вы ${p} — дилер ${d}. Победа! +${bjState.bet * 2}`; type = 'win'; changeBalance(bjState.bet * 2); }
+  else if (p === d) { msg = `Ничья (${p}). Ставка возвращена.`; type = ''; changeBalance(bjState.bet); }
+  else { msg = `Вы ${p} — дилер ${d}. Дилер победил.`; type = 'lose'; }
+
+  endBlackjack(type, msg);
+}
+
+function endBlackjack(type, msg) {
+  bjState.active = false;
+  document.getElementById('bjHitBtn').style.display = 'none';
+  document.getElementById('bjStandBtn').style.display = 'none';
+  document.getElementById('bjStartBtn').style.display = '';
+  document.getElementById('bjStartBtn').textContent = 'ИГРАТЬ СНОВА';
+
+  if (type === 'win') { winSound(); } else if (type === 'lose') { loseSound(); }
+  showResult('bjResult', msg, type);
+}
+
+document.querySelectorAll('[data-bjbet]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-bjbet]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    bjState.bet = parseInt(btn.dataset.bjbet, 10);
+  });
+});
+document.getElementById('bjStartBtn').addEventListener('click', startBlackjack);
+document.getElementById('bjHitBtn').addEventListener('click', bjHit);
+document.getElementById('bjStandBtn').addEventListener('click', bjStand);
+
+/* ============================================================
+   ИНИЦИАЛИЗАЦИЯ
+   ============================================================ */
+updateBalance();
+renderReels([0,1,2], false);
+</script>
 </body>
 </html>
