@@ -15,7 +15,6 @@
     overflow-x: hidden;
   }
 
-  /* фон с "звёздами" */
   body::before {
     content: ""; position: fixed; inset: 0;
     background-image:
@@ -36,7 +35,6 @@
 
   #app { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
 
-  /* ---------- HEADER ---------- */
   header {
     display: flex; align-items: center; justify-content: space-between;
     padding: 14px 22px;
@@ -63,12 +61,10 @@
     box-shadow: 0 0 18px rgba(255,215,0,0.2) inset;
   }
 
-  /* ---------- ЭКРАНЫ ---------- */
   .screen { display: none; flex: 1; padding: 20px; }
   .screen.active { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
-  /* ---------- МЕНЮ ---------- */
   .menu-title {
     font-size: 42px; font-weight: 900; text-align: center;
     margin: 30px 0 8px;
@@ -101,7 +97,6 @@
   .game-card h3 { margin: 0 0 8px; font-size: 24px; color: #ffd700; letter-spacing: 1px; }
   .game-card p { margin: 0; color: #999; font-size: 14px; }
 
-  /* ---------- ОБЩИЕ ЭЛЕМЕНТЫ ИГР ---------- */
   .back-btn {
     position: absolute; top: 16px; left: 16px;
     background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
@@ -138,6 +133,7 @@
   .action-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,140,0,0.6), 0 0 0 4px rgba(255,215,0,0.2); }
   .action-btn:active:not(:disabled) { transform: translateY(0); }
   .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .action-btn.green { background: linear-gradient(135deg, #4ade80, #22c55e); color: #052e1b; }
 
   .result {
     font-size: 22px; font-weight: 700; min-height: 32px; margin-top: 18px;
@@ -163,7 +159,7 @@
   }
   .reel {
     width: 88px;
-    height: 258px;          /* 3 × 86 — ровно 3 символа */
+    height: 258px;
     overflow: hidden; position: relative;
     background: linear-gradient(180deg, #050208 0%, #150a20 50%, #050208 100%);
     border-radius: 10px; border: 1px solid rgba(255,215,0,0.2);
@@ -184,31 +180,6 @@
     pointer-events: none;
   }
   .reels.win .win-line { opacity: 1; }
-
-<!-- ========== РАКЕТА ========== -->
-<div class="screen" id="rocket">
-    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
-    <h2 class="game-title">🚀 Ракета</h2>
-    <div class="bet-row">
-        <span class="bet-label">Ставка:</span>
-        <button class="bet-btn" data-rocketbet="10">10</button>
-        <button class="bet-btn active" data-rocketbet="50">50</button>
-        <button class="bet-btn" data-rocketbet="100">100</button>
-        <button class="bet-btn" data-rocketbet="250">250</button>
-    </div>
-    
-    <div id="rocketDisplay" style="font-size: 72px; margin: 40px 0; text-align: center; transition: transform 0.1s;">
-        🚀
-    </div>
-    <div id="rocketMultiplier" style="font-size: 56px; font-weight: 900; color: #ffd700; text-shadow: 0 0 30px rgba(255,215,0,0.6); margin-bottom: 30px;">
-        1.00x
-    </div>
-    
-    <button class="action-btn" id="rocketStartBtn">ЗАПУСТИТЬ</button>
-    <button class="action-btn" id="rocketCashoutBtn" style="display:none; background: linear-gradient(135deg, #4ade80, #22c55e);">ЗАБРАТЬ</button>
-    
-    <div class="result" id="rocketResult"></div>
-</div>
 
   /* ---------- РУЛЕТКА ---------- */
   .wheel-wrap { position: relative; width: 340px; height: 340px; margin: 10px 0; }
@@ -284,6 +255,67 @@
   .bj-actions { display: flex; gap: 12px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
   .bj-actions .action-btn { padding: 12px 30px; font-size: 16px; margin-top: 0; }
 
+  /* ---------- РАКЕТА ---------- */
+  .rocket-field {
+    position: relative;
+    width: 100%; max-width: 420px;
+    height: 260px;
+    background: linear-gradient(180deg, #0a0512 0%, #150a20 100%);
+    border: 2px solid rgba(255,215,0,0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 10px 0;
+    box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+  }
+  .rocket-stars {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 20%, #fff, transparent),
+      radial-gradient(1px 1px at 30% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 70% 30%, #fff, transparent),
+      radial-gradient(1px 1px at 85% 75%, #fff, transparent),
+      radial-gradient(1px 1px at 50% 90%, #fff, transparent);
+    opacity: 0.5;
+  }
+  .rocket {
+    position: absolute;
+    left: 20px; bottom: 20px;
+    font-size: 48px;
+    transition: transform 0.1s linear, left 0.1s linear;
+    filter: drop-shadow(0 0 12px rgba(255,215,0,0.6));
+    z-index: 3;
+  }
+  .rocket.flame::after {
+    content: "🔥";
+    position: absolute;
+    left: -30px;
+    top: 20px;
+    font-size: 30px;
+    animation: flame 0.2s infinite alternate;
+  }
+  @keyframes flame { from { opacity: 0.6; } to { opacity: 1; } }
+
+  .rocket-multiplier {
+    font-size: 60px; font-weight: 900;
+    color: #ffd700;
+    text-shadow: 0 0 30px rgba(255,215,0,0.6);
+    margin: 16px 0;
+    transition: color 0.2s;
+    letter-spacing: 2px;
+  }
+  .rocket-multiplier.crashed { color: #ef4444; text-shadow: 0 0 30px rgba(239,68,68,0.8); }
+
+  .rocket-explosion {
+    position: absolute;
+    font-size: 70px;
+    animation: explode 0.6s ease-out;
+    z-index: 5;
+  }
+  @keyframes explode {
+    0% { transform: scale(0.3); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
   /* ---------- КОНФЕТТИ ---------- */
   .confetti {
     position: fixed; width: 10px; height: 10px; z-index: 100;
@@ -298,13 +330,16 @@
     .logo { font-size: 18px; }
     .balance { font-size: 15px; padding: 6px 12px; }
     .menu-title { font-size: 32px; }
-    .reel { width: 72px; height: 225px; }        /* 3 × 75 */
+    .reel { width: 72px; height: 225px; }
     .reel-strip .sym { height: 75px; font-size: 46px; }
     @keyframes spin { from { transform: translateY(0); } to { transform: translateY(-75px); } }
     .wheel-wrap { width: 280px; height: 280px; }
     .action-btn { padding: 14px 34px; font-size: 17px; }
     .card { width: 56px; height: 82px; }
     .card .center { font-size: 28px; }
+    .rocket-multiplier { font-size: 44px; }
+    .rocket-field { height: 200px; }
+    .rocket { font-size: 40px; }
   }
 </style>
 </head>
@@ -318,12 +353,7 @@
   </header>
 
   <!-- ========== МЕНЮ ========== -->
-<div class="game-card" onclick="openGame('rocket')">
-    <span class="icon">🚀</span>
-    <h3>Ракета</h3>
-    <p>Успей забрать выигрыш до взрыва</p>
-</div> 
- <div class="screen active" id="menu">
+  <div class="screen active" id="menu">
     <h1 class="menu-title">Добро пожаловать</h1>
     <div class="menu-sub">Выберите игру</div>
     <div class="games">
@@ -341,6 +371,11 @@
         <span class="icon">🃏</span>
         <h3>Блэкджек</h3>
         <p>Наберите 21 и обыграйте дилера</p>
+      </div>
+      <div class="game-card" onclick="openGame('rocket')">
+        <span class="icon">🚀</span>
+        <h3>Ракета</h3>
+        <p>Успей забрать выигрыш до взрыва</p>
       </div>
     </div>
   </div>
@@ -422,6 +457,28 @@
     <div class="result" id="bjResult"></div>
   </div>
 
+  <!-- ========== РАКЕТА ========== -->
+  <div class="screen" id="rocket">
+    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
+    <h2 class="game-title">🚀 Ракета</h2>
+    <div class="bet-row">
+      <span class="bet-label">Ставка:</span>
+      <button class="bet-btn" data-rocketbet="10">10</button>
+      <button class="bet-btn active" data-rocketbet="50">50</button>
+      <button class="bet-btn" data-rocketbet="100">100</button>
+      <button class="bet-btn" data-rocketbet="250">250</button>
+    </div>
+    <div class="rocket-field" id="rocketField">
+      <div class="rocket-stars"></div>
+      <div class="rocket" id="rocketEl">🚀</div>
+    </div>
+    <div class="rocket-multiplier" id="rocketMultiplier">1.00x</div>
+    <div id="rocketStatus" style="color:#aaa; font-size:14px; margin-top:-8px; margin-bottom:8px; letter-spacing:1px;">Нажми «Запустить», чтобы начать</div>
+    <button class="action-btn" id="rocketStartBtn">ЗАПУСТИТЬ</button>
+    <button class="action-btn green" id="rocketCashoutBtn" style="display:none;">ЗАБРАТЬ</button>
+    <div class="result" id="rocketResult"></div>
+  </div>
+
 </div>
 
 <script>
@@ -448,7 +505,10 @@ function showScreen(id) {
   if (id === 'slots') renderReels(slotsState.current, false);
 }
 
-function openGame(id) { showScreen(id); if (id === 'roulette') drawWheel(); }
+function openGame(id) {
+  showScreen(id);
+  if (id === 'roulette') drawWheel();
+}
 
 /* ============================================================
    ЗВУК
@@ -490,6 +550,12 @@ function confetti() {
   }
 }
 
+function showResult(id, text, type) {
+  const el = document.getElementById(id);
+  el.textContent = text;
+  el.className = 'result ' + (type || '');
+}
+
 /* ============================================================
    СЛОТЫ
    ============================================================ */
@@ -505,7 +571,6 @@ function renderReels(positions, spinning) {
   reels.forEach((reel, i) => {
     const strip = reel.querySelector('.reel-strip');
     strip.innerHTML = '';
-    // Показываем 3 символа: центральный + верхний + нижний
     const idx = positions[i];
     const seq = [
       (idx - 1 + SYMBOLS.length) % SYMBOLS.length,
@@ -518,7 +583,6 @@ function renderReels(positions, spinning) {
       d.textContent = SYMBOLS[s];
       strip.appendChild(d);
     });
-    // Сдвигаем к центральному символу (он будет вторым в окне)
     strip.style.transform = 'translateY(-86px)';
     reel.classList.toggle('spinning', spinning);
   });
@@ -580,12 +644,6 @@ function checkSlotsWin(pos) {
   } else {
     showResult('slotsResult', msg, type);
   }
-}
-
-function showResult(id, text, type) {
-  const el = document.getElementById(id);
-  el.textContent = text;
-  el.className = 'result ' + (type || '');
 }
 
 document.querySelectorAll('[data-bet]').forEach(btn => {
@@ -669,9 +727,9 @@ function spinRoulette() {
   const result = WHEEL[resultIdx];
 
   const segDeg = 360 / WHEEL.length;
-// - segDeg / 2 — сдвигаем на полсектора, чтобы стрелка легла в центр
-const targetDeg = 360 * 5 + (360 - resultIdx * segDeg) - segDeg / 2;
-wheelRotation += targetDeg;
+  // Сдвиг на полсектора, чтобы стрелка попала в центр выигрышного сектора
+  const targetDeg = 360 * 5 + (360 - resultIdx * segDeg) - segDeg / 2;
+  wheelRotation += targetDeg;
 
   const wheelEl = document.getElementById('wheelCanvas');
   wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
@@ -854,6 +912,150 @@ document.querySelectorAll('[data-bjbet]').forEach(btn => {
 document.getElementById('bjStartBtn').addEventListener('click', startBlackjack);
 document.getElementById('bjHitBtn').addEventListener('click', bjHit);
 document.getElementById('bjStandBtn').addEventListener('click', bjStand);
+
+/* ============================================================
+   РАКЕТА
+   ============================================================ */
+let rocketState = {
+  bet: 50,
+  multiplier: 1.00,
+  active: false,
+  timer: null
+};
+
+const rocketEl = document.getElementById('rocketEl');
+const rocketMultiplierEl = document.getElementById('rocketMultiplier');
+const rocketStatusEl = document.getElementById('rocketStatus');
+const rocketStartBtn = document.getElementById('rocketStartBtn');
+const rocketCashoutBtn = document.getElementById('rocketCashoutBtn');
+
+function resetRocketVisual() {
+  rocketEl.textContent = '🚀';
+  rocketEl.style.left = '20px';
+  rocketEl.style.bottom = '20px';
+  rocketEl.style.transform = 'rotate(0deg)';
+  rocketEl.classList.remove('flame');
+  rocketMultiplierEl.textContent = '1.00x';
+  rocketMultiplierEl.style.color = '#ffd700';
+  rocketMultiplierEl.classList.remove('crashed');
+}
+
+function startRocket() {
+  if (rocketState.active) return;
+  if (balance < rocketState.bet) {
+    showResult('rocketResult', 'Недостаточно фишек!', 'lose');
+    return;
+  }
+
+  changeBalance(-rocketState.bet);
+  rocketState.active = true;
+  rocketState.multiplier = 1.00;
+
+  resetRocketVisual();
+  rocketEl.classList.add('flame');
+
+  document.getElementById('rocketResult').textContent = '';
+  rocketStartBtn.style.display = 'none';
+  rocketCashoutBtn.style.display = 'block';
+  rocketCashoutBtn.disabled = false;
+  rocketStatusEl.textContent = 'Летим! Успей забрать...';
+
+  // Точка краха — заранее
+  // Math.pow(Math.random(), 2) даёт перекос в сторону меньших значений:
+  // часто крах ~1-3x, реже 10x+, очень редко >20x
+  const crashPoint = 1 + Math.pow(Math.random(), 2) * 25;
+
+  rocketState.timer = setInterval(() => {
+    // Рост множителя (ускоряется)
+    rocketState.multiplier += 0.01 + rocketState.multiplier * 0.005;
+    const m = rocketState.multiplier;
+
+    rocketMultiplierEl.textContent = m.toFixed(2) + 'x';
+
+    // Смена цвета
+    if (m > 5) rocketMultiplierEl.style.color = '#ff8c00';
+    if (m > 10) rocketMultiplierEl.style.color = '#ef4444';
+
+    // Визуальный полёт
+    const progress = Math.min((m - 1) / 10, 1);   // 0..1
+    const leftPx = 20 + progress * 240;           // сдвиг вправо
+    const bottomPx = 20 + progress * 160;         // сдвиг вверх
+    rocketEl.style.left = leftPx + 'px';
+    rocketEl.style.bottom = bottomPx + 'px';
+    rocketEl.style.transform = `rotate(${progress * 45}deg)`;
+
+    // Тикающий звук (редко)
+    if (Math.floor(m * 10) % 5 === 0) beep(1200, 0.01, 'square', 0.02);
+
+    // Проверка краха
+    if (m >= crashPoint) {
+      crashRocket();
+    }
+  }, 80);
+}
+
+function crashRocket() {
+  clearInterval(rocketState.timer);
+  rocketState.active = false;
+  rocketState.timer = null;
+
+  // Взрыв
+  rocketEl.textContent = '💥';
+  rocketEl.classList.remove('flame');
+  rocketMultiplierEl.textContent = 'ВЗРЫВ!';
+  rocketMultiplierEl.style.color = '#ef4444';
+  rocketMultiplierEl.classList.add('crashed');
+
+  // Вспышка
+  const explosion = document.createElement('div');
+  explosion.className = 'rocket-explosion';
+  explosion.textContent = '💥';
+  explosion.style.left = rocketEl.style.left;
+  explosion.style.bottom = rocketEl.style.bottom;
+  document.getElementById('rocketField').appendChild(explosion);
+  setTimeout(() => explosion.remove(), 700);
+
+  showResult('rocketResult', `💥 Взрыв на ${rocketState.multiplier.toFixed(2)}x. Ставка сгорела.`, 'lose');
+  loseSound();
+
+  rocketStartBtn.style.display = 'block';
+  rocketStartBtn.textContent = 'ИГРАТЬ СНОВА';
+  rocketCashoutBtn.style.display = 'none';
+  rocketStatusEl.textContent = 'Попробуй ещё раз';
+}
+
+function cashoutRocket() {
+  if (!rocketState.active) return;
+
+  clearInterval(rocketState.timer);
+  rocketState.active = false;
+  rocketState.timer = null;
+
+  const win = Math.floor(rocketState.bet * rocketState.multiplier);
+  changeBalance(win);
+
+  rocketEl.classList.remove('flame');
+  rocketMultiplierEl.style.color = '#4ade80';
+  rocketMultiplierEl.textContent = rocketState.multiplier.toFixed(2) + 'x ✅';
+
+  showResult('rocketResult', `🚀 Успел забрать! +${win} (${rocketState.multiplier.toFixed(2)}x)`, 'win');
+  winSound();
+
+  rocketStartBtn.style.display = 'block';
+  rocketStartBtn.textContent = 'ИГРАТЬ СНОВА';
+  rocketCashoutBtn.style.display = 'none';
+  rocketStatusEl.textContent = 'Отличный забор! Можешь сыграть ещё';
+}
+
+document.querySelectorAll('[data-rocketbet]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-rocketbet]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    rocketState.bet = parseInt(btn.dataset.rocketbet, 10);
+  });
+});
+rocketStartBtn.addEventListener('click', startRocket);
+rocketCashoutBtn.addEventListener('click', cashoutRocket);
 
 /* ============================================================
    ИНИЦИАЛИЗАЦИЯ
