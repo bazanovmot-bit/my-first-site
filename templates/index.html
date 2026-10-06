@@ -185,6 +185,31 @@
   }
   .reels.win .win-line { opacity: 1; }
 
+<!-- ========== РАКЕТА ========== -->
+<div class="screen" id="rocket">
+    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
+    <h2 class="game-title">🚀 Ракета</h2>
+    <div class="bet-row">
+        <span class="bet-label">Ставка:</span>
+        <button class="bet-btn" data-rocketbet="10">10</button>
+        <button class="bet-btn active" data-rocketbet="50">50</button>
+        <button class="bet-btn" data-rocketbet="100">100</button>
+        <button class="bet-btn" data-rocketbet="250">250</button>
+    </div>
+    
+    <div id="rocketDisplay" style="font-size: 72px; margin: 40px 0; text-align: center; transition: transform 0.1s;">
+        🚀
+    </div>
+    <div id="rocketMultiplier" style="font-size: 56px; font-weight: 900; color: #ffd700; text-shadow: 0 0 30px rgba(255,215,0,0.6); margin-bottom: 30px;">
+        1.00x
+    </div>
+    
+    <button class="action-btn" id="rocketStartBtn">ЗАПУСТИТЬ</button>
+    <button class="action-btn" id="rocketCashoutBtn" style="display:none; background: linear-gradient(135deg, #4ade80, #22c55e);">ЗАБРАТЬ</button>
+    
+    <div class="result" id="rocketResult"></div>
+</div>
+
   /* ---------- РУЛЕТКА ---------- */
   .wheel-wrap { position: relative; width: 340px; height: 340px; margin: 10px 0; }
   .wheel-pointer {
@@ -293,7 +318,12 @@
   </header>
 
   <!-- ========== МЕНЮ ========== -->
-  <div class="screen active" id="menu">
+<div class="game-card" onclick="openGame('rocket')">
+    <span class="icon">🚀</span>
+    <h3>Ракета</h3>
+    <p>Успей забрать выигрыш до взрыва</p>
+</div> 
+ <div class="screen active" id="menu">
     <h1 class="menu-title">Добро пожаловать</h1>
     <div class="menu-sub">Выберите игру</div>
     <div class="games">
