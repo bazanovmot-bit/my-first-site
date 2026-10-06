@@ -639,8 +639,9 @@ function spinRoulette() {
   const result = WHEEL[resultIdx];
 
   const segDeg = 360 / WHEEL.length;
-  const targetDeg = 360 * 5 + (360 - resultIdx * segDeg);
-  wheelRotation += targetDeg;
+// - segDeg / 2 — сдвигаем на полсектора, чтобы стрелка легла в центр
+const targetDeg = 360 * 5 + (360 - resultIdx * segDeg) - segDeg / 2;
+wheelRotation += targetDeg;
 
   const wheelEl = document.getElementById('wheelCanvas');
   wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
