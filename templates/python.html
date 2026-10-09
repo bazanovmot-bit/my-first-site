@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python — язык будущего 🐍</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    background: #0a0e1a;
+    color: #e6edf3;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ---------- ФОН ---------- */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(circle at 20% 10%, rgba(48,105,152,0.25) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(255,212,59,0.15) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(48,105,152,0.08) 0%, transparent 60%);
+  }
+  .grid-bg {
+    position: fixed; inset: 0; z-index: -1;
+    background-image:
+      linear-gradient(rgba(48,105,152,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(48,105,152,0.06) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+
+  /* ---------- HEADER ---------- */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(10,14,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(48,105,152,0.2);
+  }
+  .logo-header {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 22px; font-weight: 900; letter-spacing: 1px;
+    color: #fff;
+  }
+  .logo-header img {
+    width: 40px; height: 40px;
+    filter: drop-shadow(0 0 10px rgba(48,105,152,0.6));
+  }
+  nav { display: flex; gap: 28px; }
+  nav a {
+    color: #8b98a8; text-decoration: none; font-weight: 600;
+    font-size: 15px; transition: color 0.2s;
+    position: relative;
+  }
+  nav a:hover { color: #4b8bbe; }
+  nav a::after {
+    content: ""; position: absolute; left: 0; bottom: -6px;
+    width: 0; height: 2px; background: #4b8bbe;
+    transition: width 0.3s;
+  }
+  nav a:hover::after { width: 100%; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    max-width: 1200px; margin: 0 auto;
+    padding: 80px 40px 60px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+  }
+  .hero-text h1 {
+    font-size: 56px; font-weight: 900; line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .hero-text h1 span {
+    background: linear-gradient(135deg, #4b8bbe, #ffd43b);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-text p {
+    font-size: 18px; color: #8b98a8; margin-bottom: 32px;
+    max-width: 480px;
+  }
+  .cta-btn {
+    display: inline-block;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, #306998, #4b8bbe);
+    color: #fff; font-weight: 700; font-size: 16px;
+    border-radius: 50px; text-decoration: none;
+    box-shadow: 0 10px 30px rgba(48,105,152,0.4);
+    transition: all 0.3s;
+    border: none; cursor: pointer;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(48,105,152,0.6);
+  }
+  .cta-btn.yellow {
+    background: linear-gradient(135deg, #ffd43b, #f7b801);
+    color: #0a0e1a;
+    box-shadow: 0 10px 30px rgba(255,212,59,0.4);
+  }
+  .cta-btn.yellow:hover {
+    box-shadow: 0 15px 40px rgba(255,212,59,0.6);
+  }
+  .hero-img {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-img img {
+    width: 100%; max-width: 400px;
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 20px 60px rgba(48,105,152,0.6));
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+  .hero-img::before {
+    content: ""; position: absolute;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(48,105,152,0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.15); opacity: 0.9; }
+  }
+
+  /* ---------- СЕКЦИИ ---------- */
+  section { padding: 80px 40px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+  .section-title {
+    font-size: 40px; font-weight: 900;
+    margin-bottom: 16px; text-align: center;
+  }
+  .section-title span {
+    background: linear-gradient(135deg, #4b8bbe, #ffd43b);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .section-sub {
+    color: #8b98a8; text-align: center;
+    margin-bottom: 60px; font-size: 17px;
+  }
+
+  /* ---------- ПРЕИМУЩЕСТВА ---------- */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .feature {
+    background: linear-gradient(160deg, rgba(30,40,60,0.6), rgba(15,20,35,0.8));
+    border: 1px solid rgba(48,105,152,0.2);
+    border-radius: 20px;
+    padding: 32px 26px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature::before {
+    content: ""; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, #306998, #ffd43b);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .feature:hover {
+    transform: translateY(-6px);
+    border-color: rgba(48,105,152,0.5);
+    box-shadow: 0 20px 50px rgba(48,105,152,0.25);
+  }
+  .feature:hover::before { opacity: 1; }
+  .feature-icon {
+    font-size: 42px; margin-bottom: 16px;
+    display: block;
+  }
+  .feature h3 {
+    font-size: 20px; font-weight: 800;
+    margin-bottom: 10px; color: #fff;
+  }
+  .feature p {
+    color: #8b98a8; font-size: 15px;
+  }
+
+  /* ---------- КОД ---------- */
+  .code-section {
+    background: linear-gradient(180deg, transparent, rgba(48,105,152,0.05), transparent);
+  }
+  .code-window {
+    max-width: 800px; margin: 0 auto;
+    background: #0d1117;
+    border: 1px solid rgba(48,105,152,0.3);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  }
+  .code-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 14px 20px;
+    background: #161b22;
+    border-bottom: 1px solid rgba(48,105,152,0.2);
+  }
+  .dot {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+  .code-title {
+    margin-left: 12px; color: #8b98a8; font-size: 13px;
+    font-family: 'Consolas', monospace;
+  }
+  .code-body {
+    padding: 24px; font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 15px; line-height: 1.8; overflow-x: auto;
+  }
+  .code-body pre { margin: 0; color: #c9d1d9; }
+  .kw { color: #ff7b72; }       /* keywords */
+  .str { color: #a5d6ff; }       /* strings */
+  .fn { color: #d2a8ff; }        /* functions */
+  .num { color: #79c0ff; }       /* numbers */
+  .cm { color: #8b949e; font-style: italic; }  /* comments */
+  .cls { color: #ffa657; }       /* classes */
+
+  /* ---------- ПРИМЕНЕНИЕ ---------- */
+  .apps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .app {
+    background: rgba(30,40,60,0.5);
+    border: 1px solid rgba(48,105,152,0.2);
+    border-radius: 16px;
+    padding: 28px 20px; text-align: center;
+    transition: all 0.3s;
+  }
+  .app:hover {
+    transform: scale(1.05);
+    border-color: #4b8bbe;
+    background: rgba(48,105,152,0.1);
+  }
+  .app-icon { font-size: 48px; margin-bottom: 12px; }
+  .app h4 { font-size: 17px; margin-bottom: 6px; color: #fff; }
+  .app p { font-size: 13px; color: #8b98a8; }
+
+  /* ---------- РЕСУРСЫ ---------- */
+  .resources {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .resource {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px 24px;
+    background: rgba(30,40,60,0.5);
+    border: 1px solid rgba(48,105,152,0.2);
+    border-radius: 14px;
+    text-decoration: none; color: inherit;
+    transition: all 0.3s;
+  }
+  .resource:hover {
+    border-color: #4b8bbe;
+    background: rgba(48,105,152,0.1);
+    transform: translateX(6px);
+  }
+  .resource-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: linear-gradient(135deg, #306998, #4b8bbe);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; flex-shrink: 0;
+  }
+  .resource h4 { font-size: 16px; margin-bottom: 2px; color: #fff; }
+  .resource p { font-size: 13px; color: #8b98a8; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 40px;
+    text-align: center;
+    border-top: 1px solid rgba(48,105,152,0.2);
+    color: #8b98a8;
+    font-size: 14px;
+  }
+  footer .heart { color: #ffd43b; }
+
+  /* ---------- АНИМАЦИИ ПОЯВЛЕНИЯ ---------- */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ---------- АДАПТИВ ---------- */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 50px 24px 40px;
+      text-align: center;
+    }
+    .hero-text h1 { font-size: 40px; }
+    .hero-text p { margin-left: auto; margin-right: auto; }
+    .hero-img img { max-width: 280px; }
+    .hero-img::before { width: 220px; height: 220px; }
+    section { padding: 60px 24px; }
+    .section-title { font-size: 30px; }
+    header { padding: 14px 20px; }
+    nav { gap: 16px; }
+    nav a { font-size: 14px; }
+  }
+  @media (max-width: 550px) {
+    .logo-header span { display: none; }
+    nav a { font-size: 13px; }
+    .hero-text h1 { font-size: 32px; }
+    .code-body { font-size: 13px; padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="logo-header">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
+    <span>Python</span>
+  </div>
+  <nav>
+    <a href="#about">О языке</a>
+    <a href="#why">Почему</a>
+    <a href="#code">Код</a>
+    <a href="#apps">Применение</a>
+    <a href="#resources">Ресурсы</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Python — <span>язык будущего</span></h1>
+    <p>
+      Простой, мощный и универсальный. Python используют в веб-разработке,
+      анализе данных, машинном обучении, автоматизации и научных исследованиях.
+      Изучить его может каждый.
+    </p>
+    <a href="https://www.python.org/downloads/" target="_blank" class="cta-btn">
+      Скачать Python →
+    </a>
+  </div>
+  <div class="hero-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python">
+  </div>
+</section>
+
+<!-- ============ О ЯЗЫКЕ ============ -->
+<section id="about">
+  <div class="section-inner">
+    <h2 class="section-title">Что такое <span>Python</span>?</h2>
+    <p class="section-sub">Язык программирования, который читается почти как английский</p>
+
+    <div class="features">
+      <div class="feature reveal">
+        <span class="feature-icon">📖</span>
+        <h3>Простой синтаксис</h3>
+        <p>Python читается почти как обычный текст. Идеален для новичков и профессионалов.</p>
+      </div>
+      <div class="feature reveal">
+        <span class="feature-icon">⚡</span>
+        <h3>Мощный</h3>
+        <p>От простых скриптов до нейросетей и огромных веб-приложений — Python справится со всем.</p>
+      </div>
+      <div class="feature reveal">
+        <span class="feature-icon">🌍</span>
+        <h3>Огромное сообщество</h3>
+        <p>Миллионы разработчиков, тысячи библиотек, ответы на любой вопрос за пару минут.</p>
+      </div>
+      <div class="feature reveal">
+        <span class="feature-icon">🚀</span>
+        <h3>Быстрый старт</h3>
+        <p>Первая программа — за 5 минут. Первый проект — за вечер. Первая работа — за полгода.</p>
+      </div>
+      <div class="feature reveal">
+        <span class="feature-icon">💼</span>
+        <h3>Востребован</h3>
+        <p>Один из самых популярных языков в мире. Python-разработчики нужны везде.</p>
+      </div>
+      <div class="feature reveal">
+        <span class="feature-icon">🎁</span>
+        <h3>Бесплатный</h3>
+        <p>Открытый исходный код. Никаких лицензий. Используй как хочешь — коммерчески и лично.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ КОД ============ -->
+<section id="code" class="code-section">
+  <div class="section-inner">
+    <h2 class="section-title">Как выглядит <span>код</span></h2>
+    <p class="section-sub">Читается почти как английский язык</p>
+
+    <div class="code-window reveal">
+      <div class="code-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="code-title">hello.py</span>
+      </div>
+      <div class="code-body">
+        <pre><span class="cm"># Первая программа на Python</span>
+<span class="kw">def</span> <span class="fn">greet</span>(name):
+    <span class="kw">return</span> <span class="str">f"Привет, {name}!"</span>
+
+<span class="cm"># Список любимых языков</span>
+languages = [<span class="str">"Python"</span>, <span class="str">"JavaScript"</span>, <span class="str">"Go"</span>]
+
+<span class="kw">for</span> lang <span class="kw">in</span> languages:
+    <span class="fn">print</span>(<span class="str">f"Я люблю {lang}"</span>)
+
+<span class="cm"># Работа с классами</span>
+<span class="kw">class</span> <span class="cls">Developer</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, name, level):
+        self.name = name
+        self.level = level
+
+    <span class="kw">def</span> <span class="fn">info</span>(self):
+        <span class="kw">return</span> <span class="str">f"{self.name} — {self.level}"</span>
+
+dev = <span class="cls">Developer</span>(<span class="str">"Matvey"</span>, <span class="str">"Junior"</span>)
+<span class="fn">print</span>(dev.<span class="fn">info</span>())
+
+<span class="cm"># Всё просто и понятно 🐍</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ПРИМЕНЕНИЕ ============ -->
+<section id="apps">
+  <div class="section-inner">
+    <h2 class="section-title">Где <span>применяется</span></h2>
+    <p class="section-sub">Python — везде: от сайтов до космоса</p>
+
+    <div class="apps">
+      <div class="app reveal">
+        <div class="app-icon">🌐</div>
+        <h4>Веб-разработка</h4>
+        <p>Django, Flask, FastAPI</p>
+      </div>
+      <div class="app reveal">
+        <div class="app-icon">📊</div>
+        <h4>Анализ данных</h4>
+        <p>Pandas, NumPy, Matplotlib</p>
+      </div>
+      <div class="app reveal">
+        <div class="app-icon">🤖</div>
+        <h4>Искусственный интеллект</h4>
+        <p>TensorFlow, PyTorch, scikit-learn</p>
+      </div>
+      <div class="app reveal">
+        <div class="app-icon">🎮</div>
+        <h4>Игры</h4>
+        <p>Pygame, Panda3D</p>
+      </div>
+      <div class="app reveal">
+        <div class="app-icon">🤖</div>
+        <h4>Боты и автоматизация</h4>
+        <p>aiogram, Selenium, BeautifulSoup</p>
+      </div>
+      <div class="app reveal">
+        <div class="app-icon">🔬</div>
+        <h4>Наука</h4>
+        <p>SciPy, SymPy, Jupyter</p>
+      </div>
+      <div class="app reveal">
+        <div class="app-icon">🛠️</div>
+        <h4>DevOps</h4>
+        <p>Ansible, Docker SDK</p>
+      </div>
+      <div class="app reveal">
+        <div class="app-icon">📱</div>
+        <h4>Мобильные приложения</h4>
+        <p>Kivy, BeeWare</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ РЕСУРСЫ ============ -->
+<section id="resources">
+  <div class="section-inner">
+    <h2 class="section-title">Полезные <span>ресурсы</span></h2>
+    <p class="section-sub">С чего начать изучение</p>
+
+    <div class="resources">
+      <a class="resource reveal" href="https://www.python.org" target="_blank">
+        <div class="resource-icon">🐍</div>
+        <div>
+          <h4>python.org</h4>
+          <p>Официальный сайт языка</p>
+        </div>
+      </a>
+      <a class="resource reveal" href="https://docs.python.org/3/" target="_blank">
+        <div class="resource-icon">📚</div>
+        <div>
+          <h4>Документация</h4>
+          <p>Официальная документация Python</p>
+        </div>
+      </a>
+      <a class="resource reveal" href="https://pypi.org" target="_blank">
+        <div class="resource-icon">📦</div>
+        <div>
+          <h4>PyPI</h4>
+          <p>Хранилище библиотек Python</p>
+        </div>
+      </a>
+      <a class="resource reveal" href="https://code.visualstudio.com" target="_blank">
+        <div class="resource-icon">💻</div>
+        <div>
+          <h4>VS Code</h4>
+          <p>Лучший редактор для Python</p>
+        </div>
+      </a>
+      <a class="resource reveal" href="https://stackoverflow.com/questions/tagged/python" target="_blank">
+        <div class="resource-icon">💬</div>
+        <div>
+          <h4>Stack Overflow</h4>
+          <p>Ответы на любые вопросы</p>
+        </div>
+      </a>
+      <a class="resource reveal" href="https://github.com/topics/python" target="_blank">
+        <div class="resource-icon">🐙</div>
+        <div>
+          <h4>GitHub</h4>
+          <p>Проекты на Python</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  Сделано с <span class="heart">❤</span> на Python • © 2026
+</footer>
+
+<script>
+  /* Плавное появление секций при скролле */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
