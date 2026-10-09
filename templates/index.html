@@ -1,1067 +1,782 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Golden Spin Casino</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumia Beauty — студия косметологии</title>
 <style>
-  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  html, body {
-    margin: 0; padding: 0; min-height: 100vh;
-    background: radial-gradient(ellipse at top, #1a0f2e 0%, #0a0514 60%, #000 100%);
-    color: #fff;
-    font-family: 'Segoe UI', 'Arial', sans-serif;
-    user-select: none;
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Montserrat', 'Segoe UI', sans-serif;
+    background: #fdfbf9;
+    color: #2d2422;
+    line-height: 1.7;
     overflow-x: hidden;
   }
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+  h1, h2, h3, .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+
+  /* ---------- ДЕКОР ---------- */
   body::before {
-    content: ""; position: fixed; inset: 0;
-    background-image:
-      radial-gradient(2px 2px at 20% 30%, rgba(255,215,0,0.4), transparent),
-      radial-gradient(2px 2px at 60% 70%, rgba(255,215,0,0.3), transparent),
-      radial-gradient(1px 1px at 40% 15%, #fff, transparent),
-      radial-gradient(1px 1px at 80% 40%, #fff, transparent),
-      radial-gradient(1px 1px at 10% 80%, #fff, transparent),
-      radial-gradient(1px 1px at 90% 90%, #fff, transparent);
-    background-size: 550px 550px, 350px 350px, 250px 250px, 250px 250px, 250px 250px, 250px 250px;
-    animation: stars 60s linear infinite;
-    pointer-events: none; z-index: 0; opacity: 0.6;
-  }
-  @keyframes stars {
-    from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0; }
-    to   { background-position: 550px 550px, -350px 350px, 250px 250px, -250px 250px, 250px -250px, -250px -250px; }
+    content: ""; position: fixed; inset: 0; z-index: -1;
+    background:
+      radial-gradient(circle at 5% 5%, rgba(240,200,210,0.3) 0%, transparent 40%),
+      radial-gradient(circle at 95% 25%, rgba(212,175,55,0.12) 0%, transparent 45%),
+      radial-gradient(circle at 50% 95%, rgba(240,200,210,0.2) 0%, transparent 50%);
   }
 
-  #app { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
-
+  /* ---------- ШАПКА ---------- */
   header {
+    position: sticky; top: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 22px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 100%);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid rgba(255,215,0,0.15);
+    padding: 18px 60px;
+    background: rgba(253,251,249,0.9);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(212,175,55,0.15);
+    transition: all 0.3s;
   }
   .logo {
-    font-size: 24px; font-weight: 900; letter-spacing: 1px;
-    background: linear-gradient(90deg, #ffd700, #ff8c00, #ffd700);
-    background-size: 200% auto;
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 3s linear infinite;
-    cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 600;
+    color: #7a4f5a; letter-spacing: 2px;
   }
-  @keyframes shine { to { background-position: 200% center; } }
-  .balance {
-    display: flex; align-items: center; gap: 8px;
-    background: rgba(255,215,0,0.1);
-    border: 1px solid rgba(255,215,0,0.4);
-    padding: 8px 16px; border-radius: 30px;
-    font-size: 18px; font-weight: 700; color: #ffd700;
-    box-shadow: 0 0 18px rgba(255,215,0,0.2) inset;
+  .logo-icon { font-size: 26px; }
+  .logo small {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px; letter-spacing: 4px;
+    color: #b8868c; display: block; margin-top: -6px;
+    text-transform: uppercase;
+  }
+  nav { display: flex; gap: 34px; align-items: center; }
+  nav a {
+    color: #5a4545; text-decoration: none;
+    font-size: 13px; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 500;
+    position: relative; transition: color 0.3s;
+  }
+  nav a:hover { color: #b8868c; }
+  nav a::after {
+    content: ""; position: absolute; left: 0; bottom: -6px;
+    width: 0; height: 1px; background: #b8868c;
+    transition: width 0.3s;
+  }
+  nav a:hover::after { width: 100%; }
+  .nav-phone {
+    color: #b8868c; font-weight: 600;
+    font-size: 14px; text-decoration: none;
+    border: 1px solid #b8868c; padding: 10px 20px;
+    border-radius: 50px; transition: all 0.3s;
+  }
+  .nav-phone:hover { background: #b8868c; color: #fff; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    align-items: center; gap: 60px;
+    max-width: 1300px; margin: 0 auto;
+    padding: 90px 60px 100px;
+  }
+  .hero-text .label {
+    color: #b8868c; font-size: 12px;
+    letter-spacing: 5px; text-transform: uppercase;
+    margin-bottom: 20px; display: block;
+  }
+  .hero-text h1 {
+    font-size: 72px; line-height: 1.05;
+    margin-bottom: 28px; color: #7a4f5a;
+    font-weight: 600;
+  }
+  .hero-text h1 em {
+    font-style: italic; color: #b8868c;
+    font-weight: 400;
+  }
+  .hero-text p {
+    font-size: 17px; color: #6b5656;
+    margin-bottom: 40px; max-width: 520px;
+    font-weight: 300;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 18px 42px;
+    background: linear-gradient(135deg, #b8868c, #d4af37);
+    color: #fff; font-weight: 600;
+    font-size: 13px; letter-spacing: 3px;
+    border-radius: 50px; text-decoration: none;
+    box-shadow: 0 12px 30px rgba(184,134,140,0.4);
+    transition: all 0.3s;
+    border: none; cursor: pointer;
+    text-transform: uppercase;
+  }
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(184,134,140,0.55);
+  }
+  .btn.outline {
+    background: transparent;
+    border: 1px solid #b8868c;
+    color: #7a4f5a;
+    box-shadow: none;
+  }
+  .btn.outline:hover {
+    background: #b8868c;
+    color: #fff;
   }
 
-  .screen { display: none; flex: 1; padding: 20px; }
-  .screen.active { display: flex; flex-direction: column; align-items: center; animation: fadeIn 0.4s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-
-  .menu-title {
-    font-size: 42px; font-weight: 900; text-align: center;
-    margin: 30px 0 8px;
-    background: linear-gradient(135deg, #ffd700, #ff8c00, #ffd700);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 40px rgba(255,215,0,0.3);
-  }
-  .menu-sub { color: #aaa; margin-bottom: 40px; font-size: 15px; letter-spacing: 2px; text-transform: uppercase; }
-
-  .games {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 22px; width: 100%; max-width: 900px;
-  }
-  .game-card {
-    background: linear-gradient(160deg, rgba(40,20,70,0.7), rgba(15,5,30,0.9));
-    border: 1px solid rgba(255,215,0,0.25);
-    border-radius: 20px; padding: 32px 20px; text-align: center;
-    cursor: pointer; transition: all 0.3s cubic-bezier(.2,.8,.3,1);
-    position: relative; overflow: hidden;
-  }
-  .game-card::before {
-    content: ""; position: absolute; inset: 0;
-    background: radial-gradient(circle at 50% 0%, rgba(255,215,0,0.15), transparent 70%);
-    opacity: 0; transition: opacity 0.3s;
-  }
-  .game-card:hover { transform: translateY(-6px); border-color: #ffd700; box-shadow: 0 20px 50px rgba(255,215,0,0.25); }
-  .game-card:hover::before { opacity: 1; }
-  .game-card .icon { font-size: 64px; display: block; margin-bottom: 14px; filter: drop-shadow(0 0 12px rgba(255,215,0,0.5)); }
-  .game-card h3 { margin: 0 0 8px; font-size: 24px; color: #ffd700; letter-spacing: 1px; }
-  .game-card p { margin: 0; color: #999; font-size: 14px; }
-
-  .back-btn {
-    position: absolute; top: 16px; left: 16px;
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
-    color: #fff; padding: 8px 16px; border-radius: 30px; cursor: pointer;
-    font-size: 14px; transition: all 0.2s;
-  }
-  .back-btn:hover { background: rgba(255,215,0,0.15); border-color: #ffd700; color: #ffd700; }
-
-  .game-title {
-    font-size: 30px; font-weight: 800; margin: 20px 0 22px;
-    background: linear-gradient(90deg, #ffd700, #ff8c00);
-    -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .bet-row { display: flex; gap: 10px; align-items: center; justify-content: center; margin: 16px 0; flex-wrap: wrap; }
-  .bet-label { color: #aaa; font-size: 14px; letter-spacing: 1px; }
-  .bet-btn {
-    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,215,0,0.3);
-    color: #ffd700; padding: 8px 16px; border-radius: 10px; cursor: pointer;
-    font-size: 15px; font-weight: 700; transition: all 0.2s;
-  }
-  .bet-btn.active { background: #ffd700; color: #111; box-shadow: 0 0 20px rgba(255,215,0,0.5); }
-  .bet-btn:hover { border-color: #ffd700; }
-
-  .action-btn {
-    background: linear-gradient(135deg, #ffd700, #ff8c00);
-    border: none; color: #1a0f2e; font-weight: 900;
-    padding: 16px 46px; border-radius: 50px; cursor: pointer;
-    font-size: 20px; letter-spacing: 2px; margin-top: 18px;
-    box-shadow: 0 10px 30px rgba(255,140,0,0.4), 0 0 0 4px rgba(255,215,0,0.1);
-    transition: all 0.2s;
-  }
-  .action-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,140,0,0.6), 0 0 0 4px rgba(255,215,0,0.2); }
-  .action-btn:active:not(:disabled) { transform: translateY(0); }
-  .action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .action-btn.green { background: linear-gradient(135deg, #4ade80, #22c55e); color: #052e1b; }
-
-  .result {
-    font-size: 22px; font-weight: 700; min-height: 32px; margin-top: 18px;
-    text-align: center; transition: all 0.3s;
-  }
-  .result.win { color: #4ade80; text-shadow: 0 0 20px rgba(74,222,128,0.6); animation: pop 0.4s; }
-  .result.lose { color: #ef4444; text-shadow: 0 0 20px rgba(239,68,68,0.6); animation: pop 0.4s; }
-  .result.jackpot { color: #ffd700; text-shadow: 0 0 30px rgba(255,215,0,0.9); font-size: 28px; animation: pop 0.6s; }
-  @keyframes pop { 0% { transform: scale(0.6); } 60% { transform: scale(1.1); } 100% { transform: scale(1); } }
-
-  /* ---------- СЛОТЫ ---------- */
-  .slots-machine {
-    background: linear-gradient(160deg, #2a1145, #150520);
-    border: 3px solid #ffd700;
-    border-radius: 24px; padding: 28px;
-    box-shadow: 0 0 60px rgba(255,215,0,0.25), inset 0 0 30px rgba(255,215,0,0.05);
-  }
-  .reels {
-    display: flex; gap: 14px; justify-content: center;
-    background: #0a0512; padding: 18px;
-    border-radius: 16px; border: 2px solid rgba(255,215,0,0.3);
+  .hero-img {
     position: relative;
   }
-  .reel {
-    width: 88px;
-    height: 258px;
-    overflow: hidden; position: relative;
-    background: linear-gradient(180deg, #050208 0%, #150a20 50%, #050208 100%);
-    border-radius: 10px; border: 1px solid rgba(255,215,0,0.2);
+  .hero-img .img-main {
+    width: 100%; aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 300px 300px 30px 30px;
+    box-shadow: 0 40px 80px rgba(122,79,90,0.3);
   }
-  .reel-strip { display: flex; flex-direction: column; }
-  .reel-strip .sym {
-    height: 86px; display: flex; align-items: center; justify-content: center;
-    font-size: 54px; line-height: 1;
-    filter: drop-shadow(0 0 8px rgba(255,215,0,0.4));
-  }
-  .reel.spinning .reel-strip { animation: spin 0.12s linear infinite; }
-  @keyframes spin { from { transform: translateY(0); } to { transform: translateY(-86px); } }
-
-  .win-line {
-    position: absolute; left: 0; right: 0; top: 50%; height: 2px;
-    background: linear-gradient(90deg, transparent, #ffd700, transparent);
-    opacity: 0; transition: opacity 0.3s;
-    pointer-events: none;
-  }
-  .reels.win .win-line { opacity: 1; }
-
-  /* ---------- РУЛЕТКА ---------- */
-  .wheel-wrap { position: relative; width: 340px; height: 340px; margin: 10px 0; }
-  .wheel-pointer {
-    position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
-    width: 0; height: 0;
-    border-left: 14px solid transparent; border-right: 14px solid transparent;
-    border-top: 24px solid #ffd700; z-index: 5;
-    filter: drop-shadow(0 0 8px #ffd700);
-  }
-  .wheel {
-    width: 100%; height: 100%; border-radius: 50%;
-    border: 6px solid #ffd700;
-    box-shadow: 0 0 60px rgba(255,215,0,0.4), inset 0 0 30px rgba(0,0,0,0.6);
-    transition: transform 4s cubic-bezier(0.17, 0.67, 0.15, 1);
-    position: relative;
-  }
-  .wheel-center {
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    width: 60px; height: 60px; border-radius: 50%;
-    background: radial-gradient(circle, #ffd700, #b8860b);
-    border: 3px solid #fff;
-    display: flex; align-items: center; justify-content: center;
-    font-weight: 900; color: #1a0f2e; font-size: 22px;
-    box-shadow: 0 0 20px rgba(255,215,0,0.7);
-    z-index: 3;
-  }
-
-  .bet-options { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin: 8px 0; }
-  .bet-opt {
-    padding: 12px 20px; border-radius: 12px; cursor: pointer; font-weight: 700;
-    border: 2px solid transparent; transition: all 0.2s; font-size: 15px;
-  }
-  .bet-opt.red { background: #dc2626; color: #fff; }
-  .bet-opt.black { background: #1f1f1f; color: #fff; border-color: #444; }
-  .bet-opt.green { background: #16a34a; color: #fff; }
-  .bet-opt.selected { border-color: #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.6); transform: scale(1.05); }
-
-  /* ---------- БЛЭКДЖЕК ---------- */
-  .bj-table {
-    background: radial-gradient(ellipse at center, #0f5132 0%, #052e1b 100%);
-    border: 3px solid #ffd700; border-radius: 24px;
-    padding: 24px; width: 100%; max-width: 620px;
-    box-shadow: 0 0 60px rgba(255,215,0,0.2), inset 0 0 40px rgba(0,0,0,0.5);
-  }
-  .bj-hand { margin-bottom: 18px; }
-  .bj-hand-label { font-size: 14px; color: #ffd700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
-  .bj-cards { display: flex; gap: 8px; flex-wrap: wrap; min-height: 100px; align-items: center; }
-  .card {
-    width: 66px; height: 96px; border-radius: 8px;
-    background: linear-gradient(135deg, #fff 0%, #eee 100%);
-    color: #111; display: flex; flex-direction: column;
-    align-items: center; justify-content: space-between;
-    padding: 6px; font-weight: 800; position: relative;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.5);
-    animation: dealCard 0.4s ease;
-    border: 1px solid #ccc;
-  }
-  @keyframes dealCard { from { transform: translateY(-80px) rotate(-15deg); opacity: 0; } to { transform: none; opacity: 1; } }
-  .card.red { color: #dc2626; }
-  .card .top { align-self: flex-start; font-size: 15px; line-height: 1; }
-  .card .bottom { align-self: flex-end; font-size: 15px; line-height: 1; transform: rotate(180deg); }
-  .card .center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 34px; }
-  .card.back {
-    background: repeating-linear-gradient(45deg, #1e3a8a 0 8px, #3b82f6 8px 16px);
-    color: transparent; border-color: #ffd700;
-  }
-  .card.back::after {
-    content: "🎰"; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    font-size: 30px; color: #ffd700;
-  }
-  .bj-score { font-size: 18px; color: #fff; margin-top: 8px; font-weight: 700; }
-  .bj-actions { display: flex; gap: 12px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
-  .bj-actions .action-btn { padding: 12px 30px; font-size: 16px; margin-top: 0; }
-
-  /* ---------- РАКЕТА ---------- */
-  .rocket-field {
-    position: relative;
-    width: 100%; max-width: 420px;
-    height: 260px;
-    background: linear-gradient(180deg, #0a0512 0%, #150a20 100%);
-    border: 2px solid rgba(255,215,0,0.3);
+  .hero-img .floating-card {
+    position: absolute;
+    bottom: 30px; left: -40px;
+    background: #fff;
+    padding: 22px 28px;
     border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(122,79,90,0.2);
+    animation: float 4s ease-in-out infinite;
+  }
+  .floating-card .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 700; color: #b8868c;
+  }
+  .floating-card .lbl {
+    font-size: 12px; color: #6b5656;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .hero-img .badge-top {
+    position: absolute;
+    top: 30px; right: 20px;
+    background: #d4af37; color: #fff;
+    padding: 12px 22px; border-radius: 50px;
+    font-size: 12px; letter-spacing: 2px;
+    text-transform: uppercase; font-weight: 600;
+    box-shadow: 0 10px 30px rgba(212,175,55,0.5);
+  }
+
+  /* ---------- ПОЛОСА ПРЕИМУЩЕСТВ ---------- */
+  .perks {
+    background: #f5e6e8;
+    padding: 40px 60px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    max-width: 1400px; margin: 0 auto;
+    border-radius: 40px;
+  }
+  .perk {
+    display: flex; align-items: center; gap: 16px;
+    text-align: left;
+  }
+  .perk-icon { font-size: 34px; }
+  .perk-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; color: #7a4f5a; font-weight: 600;
+  }
+  .perk-text { font-size: 13px; color: #6b5656; }
+
+  /* ---------- СЕКЦИИ ---------- */
+  section { padding: 100px 60px; }
+  .section-inner { max-width: 1300px; margin: 0 auto; }
+  .section-head { text-align: center; margin-bottom: 70px; }
+  .section-label {
+    color: #b8868c; font-size: 12px;
+    letter-spacing: 5px; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .section-title {
+    font-size: 52px; color: #7a4f5a;
+    font-weight: 600; line-height: 1.1;
+  }
+  .section-title em { font-style: italic; color: #b8868c; }
+  .section-sub {
+    color: #6b5656; margin-top: 16px;
+    font-size: 16px; font-weight: 300;
+  }
+
+  /* ---------- УСЛУГИ ---------- */
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+  .service {
+    background: #fff;
+    border-radius: 24px;
     overflow: hidden;
-    margin: 10px 0;
-    box-shadow: inset 0 0 40px rgba(0,0,0,0.6);
+    box-shadow: 0 15px 50px rgba(122,79,90,0.08);
+    transition: all 0.4s;
+    border: 1px solid rgba(184,134,140,0.1);
+    position: relative;
+    display: flex; flex-direction: column;
   }
-  .rocket-stars {
-    position: absolute; inset: 0;
-    background-image:
-      radial-gradient(1px 1px at 10% 20%, #fff, transparent),
-      radial-gradient(1px 1px at 30% 60%, #fff, transparent),
-      radial-gradient(1px 1px at 70% 30%, #fff, transparent),
-      radial-gradient(1px 1px at 85% 75%, #fff, transparent),
-      radial-gradient(1px 1px at 50% 90%, #fff, transparent);
-    opacity: 0.5;
+  .service:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 70px rgba(122,79,90,0.2);
   }
-  .rocket {
-    position: absolute;
-    left: 20px; bottom: 20px;
-    font-size: 48px;
-    transition: transform 0.1s linear, left 0.1s linear;
-    filter: drop-shadow(0 0 12px rgba(255,215,0,0.6));
-    z-index: 3;
+  .service-img {
+    height: 220px; overflow: hidden;
   }
-  .rocket.flame::after {
-    content: "🔥";
-    position: absolute;
-    left: -30px;
-    top: 20px;
-    font-size: 30px;
-    animation: flame 0.2s infinite alternate;
+  .service-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s;
   }
-  @keyframes flame { from { opacity: 0.6; } to { opacity: 1; } }
-
-  .rocket-multiplier {
-    font-size: 60px; font-weight: 900;
-    color: #ffd700;
-    text-shadow: 0 0 30px rgba(255,215,0,0.6);
-    margin: 16px 0;
-    transition: color 0.2s;
-    letter-spacing: 2px;
+  .service:hover .service-img img { transform: scale(1.08); }
+  .service-body { padding: 30px; flex: 1; display: flex; flex-direction: column; }
+  .service h3 {
+    font-size: 24px; color: #7a4f5a;
+    margin-bottom: 12px; font-weight: 600;
   }
-  .rocket-multiplier.crashed { color: #ef4444; text-shadow: 0 0 30px rgba(239,68,68,0.8); }
-
-  .rocket-explosion {
-    position: absolute;
-    font-size: 70px;
-    animation: explode 0.6s ease-out;
-    z-index: 5;
+  .service p {
+    color: #6b5656; font-size: 14px;
+    flex: 1; margin-bottom: 20px;
+    font-weight: 300;
   }
-  @keyframes explode {
-    0% { transform: scale(0.3); opacity: 1; }
-    100% { transform: scale(2.5); opacity: 0; }
+  .service-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(184,134,140,0.3);
+  }
+  .service-price {
+    color: #b8868c; font-weight: 700;
+    font-size: 20px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .service-time {
+    font-size: 13px; color: #9a8585;
+    display: flex; align-items: center; gap: 6px;
   }
 
-  /* ---------- КОНФЕТТИ ---------- */
-  .confetti {
-    position: fixed; width: 10px; height: 10px; z-index: 100;
-    pointer-events: none; border-radius: 2px;
+ 
+
+  /* ---------- АКЦИИ ---------- */
+  .promo {
+    background: linear-gradient(135deg, #7a4f5a, #b8868c);
+    border-radius: 40px;
+    padding: 60px;
+    color: #fff;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 50px;
+    max-width: 1200px; margin: 0 auto;
+    box-shadow: 0 40px 80px rgba(122,79,90,0.3);
   }
-  @keyframes fall {
-    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  .promo h2 {
+    font-size: 44px; line-height: 1.1;
+    margin-bottom: 20px; font-weight: 600;
+  }
+  .promo h2 em { font-style: italic; color: #ffd97a; }
+  .promo p {
+    font-size: 16px; margin-bottom: 30px;
+    opacity: 0.9; font-weight: 300;
+  }
+  .promo .btn {
+    background: #ffd97a; color: #7a4f5a;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  }
+  .promo .btn:hover { background: #fff; }
+  .promo-num {
+    text-align: center;
+  }
+  .promo-num .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 140px; font-weight: 700;
+    line-height: 1; color: #ffd97a;
+    text-shadow: 0 0 40px rgba(255,217,122,0.5);
+  }
+  .promo-num .num-lbl {
+    font-size: 15px; letter-spacing: 4px;
+    text-transform: uppercase; margin-top: 10px;
+    opacity: 0.9;
+  }
+
+  /* ---------- ОТЗЫВЫ ---------- */
+  .reviews {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 28px;
+  }
+  .review {
+    background: #fff;
+    border-radius: 24px;
+    padding: 36px;
+    box-shadow: 0 15px 50px rgba(122,79,90,0.08);
+    border: 1px solid rgba(184,134,140,0.12);
+    position: relative;
+  }
+  .review::before {
+    content: "❝";
+    position: absolute; top: 8px; right: 24px;
+    font-size: 90px; color: rgba(184,134,140,0.15);
+    line-height: 1;
+    font-family: Georgia, serif;
+  }
+  .review-text {
+    color: #5a4545; font-size: 15px;
+    font-style: italic; margin-bottom: 24px;
+    line-height: 1.8; position: relative; z-index: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+  }
+  .review-author {
+    display: flex; align-items: center; gap: 16px;
+    padding-top: 20px;
+    border-top: 1px dashed rgba(184,134,140,0.25);
+  }
+  .review-avatar {
+    width: 54px; height: 54px; border-radius: 50%;
+    background-size: cover; background-position: center;
+    border: 2px solid #b8868c;
+  }
+  .review-name {
+    color: #7a4f5a; font-weight: 600; font-size: 15px;
+  }
+  .review-stars { color: #d4af37; font-size: 14px; letter-spacing: 2px; }
+
+ 
+  /* ---------- КАРТА ---------- */
+  .map-wrap {
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(47.2743322, 38.9172636);
+    height: 400px;
+  }
+  .map-wrap iframe {
+    width: 100%; height: 100%; border: 0;
+  }
+
+  /* ---------- КОНТАКТЫ ---------- */
+  .contacts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 26px;
+    margin-bottom: 60px;
+  }
+  .contact-card {
+    background: #fff;
+    padding: 32px 26px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 12px 40px rgba(122,79,90,0.08);
+    border: 1px solid rgba(184,134,140,0.12);
+    transition: all 0.3s;
+  }
+  .contact-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(184,134,140,0.4);
+  }
+  .contact-icon { font-size: 34px; margin-bottom: 14px; display: block; }
+  .contact-card h4 {
+    color: #7a4f5a; font-size: 17px;
+    margin-bottom: 10px; font-weight: 600;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .contact-card p { color: #6b5656; font-size: 14px; font-weight: 300; }
+  .contact-card a { color: #b8868c; text-decoration: none; font-weight: 500; }
+  .contact-card a:hover { color: #7a4f5a; }
+
+  /* ---------- ПОДВАЛ ---------- */
+  footer {
+    background: #2d2422;
+    color: #d4c5c5;
+    padding: 50px 60px 30px;
+  }
+  .footer-inner {
+    max-width: 1300px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 50px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(212,197,197,0.15);
+  }
+  .footer-inner h5 {
+    color: #fff; font-size: 15px;
+    margin-bottom: 16px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .footer-inner p, .footer-inner a {
+    color: #d4c5c5; font-size: 14px;
+    text-decoration: none; display: block;
+    margin-bottom: 10px;
+    font-weight: 300; transition: color 0.3s;
+  }
+  .footer-inner a:hover { color: #ffd97a; }
+  .footer-bottom {
+    max-width: 1300px; margin: 30px auto 0;
+    text-align: center; color: #9a8585;
+    font-size: 13px; letter-spacing: 1px;
   }
 
   /* ---------- АДАПТИВ ---------- */
-  @media (max-width: 500px) {
-    .logo { font-size: 18px; }
-    .balance { font-size: 15px; padding: 6px 12px; }
-    .menu-title { font-size: 32px; }
-    .reel { width: 72px; height: 225px; }
-    .reel-strip .sym { height: 75px; font-size: 46px; }
-    @keyframes spin { from { transform: translateY(0); } to { transform: translateY(-75px); } }
-    .wheel-wrap { width: 280px; height: 280px; }
-    .action-btn { padding: 14px 34px; font-size: 17px; }
-    .card { width: 56px; height: 82px; }
-    .card .center { font-size: 28px; }
-    .rocket-multiplier { font-size: 44px; }
-    .rocket-field { height: 200px; }
-    .rocket { font-size: 40px; }
+  @media (max-width: 1000px) {
+    header { padding: 16px 24px; }
+    nav { gap: 18px; }
+    nav a { font-size: 11px; letter-spacing: 1px; }
+    nav .nav-phone { padding: 8px 14px; font-size: 12px; }
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .hero-text h1 { font-size: 46px; }
+    .hero-text p { margin-left: auto; margin-right: auto; }
+    .hero-actions { justify-content: center; }
+    .hero-img { max-width: 400px; margin: 40px auto 0; }
+    .hero-img .floating-card { left: 0; }
+    section { padding: 70px 24px; }
+    .perks { padding: 30px 24px; }
+    .section-title { font-size: 36px; }
+    .booking-section { padding: 70px 24px; }
+    .booking { grid-template-columns: 1fr; padding: 40px 30px; gap: 30px; }
+    .promo { grid-template-columns: 1fr; padding: 40px; }
+    .promo h2 { font-size: 34px; }
+    .promo-num .num { font-size: 100px; }
+    .footer-inner { grid-template-columns: 1fr; gap: 30px; }
   }
+  @media (max-width: 550px) {
+    .logo { font-size: 20px; }
+    .logo small { font-size: 8px; letter-spacing: 3px; }
+    nav a:not(.nav-phone) { display: none; }
+    .hero-text h1 { font-size: 34px; }
+    .section-title { font-size: 28px; }
+    .btn { padding: 15px 30px; font-size: 12px; }
+    .perk-title { font-size: 18px; }
+    .review-text { font-size: 17px; }
+  }
+
+  /* ---------- ПОЯВЛЕНИЕ ---------- */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(.2,.8,.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 </style>
 </head>
 <body>
 
-<div id="app">
-
-  <header>
-    <div class="logo" onclick="showScreen('menu')">🎰 GOLDEN SPIN</div>
-    <div class="balance">💰 <span id="balanceVal">1000</span></div>
-  </header>
-
-  <!-- ========== МЕНЮ ========== -->
-  <div class="screen active" id="menu">
-    <h1 class="menu-title">Добро пожаловать</h1>
-    <div class="menu-sub">Выберите игру</div>
-    <div class="games">
-      <div class="game-card" onclick="openGame('slots')">
-        <span class="icon">🎰</span>
-        <h3>Слоты</h3>
-        <p>Крутите барабаны и срывайте куш</p>
-      </div>
-      <div class="game-card" onclick="openGame('roulette')">
-        <span class="icon">🎡</span>
-        <h3>Рулетка</h3>
-        <p>Ставьте на цвет — испытайте удачу</p>
-      </div>
-      <div class="game-card" onclick="openGame('blackjack')">
-        <span class="icon">🃏</span>
-        <h3>Блэкджек</h3>
-        <p>Наберите 21 и обыграйте дилера</p>
-      </div>
-      <div class="game-card" onclick="openGame('rocket')">
-        <span class="icon">🚀</span>
-        <h3>Ракета</h3>
-        <p>Успей забрать выигрыш до взрыва</p>
-      </div>
+<!-- ============ ШАПКА ============ -->
+<header>
+  <div class="logo">
+    <span class="logo-icon">🌷</span>
+    <div>
+      LUMIA
+      <small>beauty studio</small>
     </div>
   </div>
+  <nav>
+    <a href="#services">Услуги</a>
+   
+    <a href="#reviews">Отзывы</a>
+    <a href="#contacts">Контакты</a>
+    <a href="#booking" class="nav-phone">Записаться</a>
+  </nav>
+</header>
 
-  <!-- ========== СЛОТЫ ========== -->
-  <div class="screen" id="slots">
-    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
-    <h2 class="game-title">🎰 Слоты</h2>
-    <div class="bet-row">
-      <span class="bet-label">Ставка:</span>
-      <button class="bet-btn" data-bet="10">10</button>
-      <button class="bet-btn active" data-bet="50">50</button>
-      <button class="bet-btn" data-bet="100">100</button>
-      <button class="bet-btn" data-bet="250">250</button>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="label">Студия косметологии в Таганроге</span>
+    <h1>Ваша кожа <em>заслуживает</em> лучшего</h1>
+    <p>
+      Индивидуальный подход, современное оборудование и врачи-косметологи
+      с опытом более 3 лет. Мы создаём естественную красоту, а не шаблонный образ.
+    </p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn">Записаться онлайн</a>
+      <a href="#services" class="btn outline">Услуги</a>
     </div>
-    <div class="slots-machine">
-      <div class="reels" id="reels">
-        <div class="reel"><div class="reel-strip"></div></div>
-        <div class="reel"><div class="reel-strip"></div></div>
-        <div class="reel"><div class="reel-strip"></div></div>
-        <div class="win-line"></div>
-      </div>
-    </div>
-    <button class="action-btn" id="spinBtn">КРУТИТЬ</button>
-    <div class="result" id="slotsResult"></div>
   </div>
-
-  <!-- ========== РУЛЕТКА ========== -->
-  <div class="screen" id="roulette">
-    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
-    <h2 class="game-title">🎡 Рулетка</h2>
-    <div class="bet-row">
-      <span class="bet-label">Ставка:</span>
-      <button class="bet-btn" data-rbet="10">10</button>
-      <button class="bet-btn active" data-rbet="50">50</button>
-      <button class="bet-btn" data-rbet="100">100</button>
+  <div class="hero-img">
+    <img class="img-main" src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&auto=format&fit=crop" alt="Косметология">
+    <div class="floating-card">
+      <div class="num">500+</div>
+      <div class="lbl">Довольных клиентов</div>
     </div>
-    <div class="wheel-wrap">
-      <div class="wheel-pointer"></div>
-      <canvas class="wheel" id="wheelCanvas" width="680" height="680"></canvas>
-      <div class="wheel-center">GO</div>
-    </div>
-    <div class="bet-options" id="rouletteBets">
-      <div class="bet-opt red" data-bet="red">КРАСНОЕ ×2</div>
-      <div class="bet-opt black" data-bet="black">ЧЁРНОЕ ×2</div>
-      <div class="bet-opt green" data-bet="green">ЗЕРО ×14</div>
-    </div>
-    <button class="action-btn" id="spinRouletteBtn" disabled>КРУТИТЬ</button>
-    <div class="result" id="rouletteResult"></div>
+    <div class="badge-top">★ 4.9 рейтинг</div>
   </div>
+</section>
 
-  <!-- ========== БЛЭКДЖЕК ========== -->
-  <div class="screen" id="blackjack">
-    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
-    <h2 class="game-title">🃏 Блэкджек</h2>
-    <div class="bet-row">
-      <span class="bet-label">Ставка:</span>
-      <button class="bet-btn" data-bjbet="10">10</button>
-      <button class="bet-btn active" data-bjbet="50">50</button>
-      <button class="bet-btn" data-bjbet="100">100</button>
+<!-- ============ ПРЕИМУЩЕСТВА ============ -->
+<div class="perks">
+  <div class="perk">
+    <span class="perk-icon">🎓</span>
+    <div>
+      <div class="perk-title">Врач-косметологи</div>
+      <div class="perk-text">Высшее медицинское образование</div>
     </div>
-    <div class="bj-table">
-      <div class="bj-hand">
-        <div class="bj-hand-label">Дилер</div>
-        <div class="bj-cards" id="dealerCards"></div>
-        <div class="bj-score" id="dealerScore"></div>
-      </div>
-      <div class="bj-hand">
-        <div class="bj-hand-label">Вы</div>
-        <div class="bj-cards" id="playerCards"></div>
-        <div class="bj-score" id="playerScore"></div>
-      </div>
-      <div class="bj-actions" id="bjActions">
-        <button class="action-btn" id="bjStartBtn">НАЧАТЬ</button>
-        <button class="action-btn" id="bjHitBtn" style="display:none">ВЗЯТЬ</button>
-        <button class="action-btn" id="bjStandBtn" style="display:none">ХВАТИТ</button>
-      </div>
-    </div>
-    <div class="result" id="bjResult"></div>
   </div>
-
-  <!-- ========== РАКЕТА ========== -->
-  <div class="screen" id="rocket">
-    <button class="back-btn" onclick="showScreen('menu')">← Меню</button>
-    <h2 class="game-title">🚀 Ракета</h2>
-    <div class="bet-row">
-      <span class="bet-label">Ставка:</span>
-      <button class="bet-btn" data-rocketbet="10">10</button>
-      <button class="bet-btn active" data-rocketbet="50">50</button>
-      <button class="bet-btn" data-rocketbet="100">100</button>
-      <button class="bet-btn" data-rocketbet="250">250</button>
+  <div class="perk">
+    <span class="perk-icon">🔬</span>
+    <div>
+      <div class="perk-title">Сертифицированное</div>
+      <div class="perk-text">Оборудование премиум-класса</div>
     </div>
-    <div class="rocket-field" id="rocketField">
-      <div class="rocket-stars"></div>
-      <div class="rocket" id="rocketEl">🚀</div>
-    </div>
-    <div class="rocket-multiplier" id="rocketMultiplier">1.00x</div>
-    <div id="rocketStatus" style="color:#aaa; font-size:14px; margin-top:-8px; margin-bottom:8px; letter-spacing:1px;">Нажми «Запустить», чтобы начать</div>
-    <button class="action-btn" id="rocketStartBtn">ЗАПУСТИТЬ</button>
-    <button class="action-btn green" id="rocketCashoutBtn" style="display:none;">ЗАБРАТЬ</button>
-    <div class="result" id="rocketResult"></div>
   </div>
-
+  <div class="perk">
+    <span class="perk-icon">💎</span>
+    <div>
+      <div class="perk-title">Премиум-косметика</div>
+      <div class="perk-text">Только проверенные бренды</div>
+    </div>
+  </div>
+  <div class="perk">
+    <span class="perk-icon">💝</span>
+    <div>
+      <div class="perk-title">Индивидуально</div>
+      <div class="perk-text">Программа под вашу кожу</div>
+    </div>
+  </div>
 </div>
 
+<!-- ============ УСЛУГИ ============ -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-label">Что мы делаем</div>
+      <h2 class="section-title">Наши <em>услуги</em></h2>
+      <p class="section-sub">Полный спектр процедур для красоты и здоровья кожи</p>
+    </div>
+
+    <div class="services">
+      <div class="service reveal">
+        <div class="service-img">
+          <img src="https://avatars.mds.yandex.net/get-ydo/14411439/2a00000196009e46c1cacae0adccee27ba15/diploma" alt="Чистка лица">
+        </div>
+        <div class="service-body">
+          <h3>Чистка лица</h3>
+          <p>Глубокая очистка пор, удаление загрязнений и ороговевших клеток. Комбинированная, ультразвуковая, атравматичная.</p>
+          <div class="service-footer">
+            <div class="service-price">3 500 ₽</div>
+            <div class="service-time">⏱ 60 мин</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="service reveal">
+        <div class="service-img">
+          <img src="https://rzd-medicine.ru/assets/images/uslugaphoto/orig/1800.jpeg" alt="Пилинг">
+        </div>
+        <div class="service-body">
+          <h3>Пилинги</h3>
+          <p>Химические, ферментативные и кислотные пилинги для обновления кожи и выравнивания тона.</p>
+          <div class="service-footer">
+            <div class="service-price">4 000 ₽</div>
+            <div class="service-time">⏱ 45 мин</div>
+          </div>
+        </div>
+      </div>
+
+     
+          <div class="service reveal">
+        <div class="service-img">
+          <img src="https://fongrad.ru/upload/iblock/9fa/gvgu6bt3410ebba1b0d3dgi7if96blk7/033-Edit.jpg" alt="Уход">
+        </div>
+        <div class="service-body">
+          <h3>Уходовые процедуры</h3>
+          <p>Маски, сыворотки, аппаратные методики. Программа подбирается индивидуально под вашу кожу.</p>
+          <div class="service-footer">
+            <div class="service-price">2 500 ₽</div>
+            <div class="service-time">⏱ 60 мин</div>
+          </div>
+        </div>
+      </div>
+
+         
+          
+                      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ МАСТЕРА ============ -->
+
+
+
+
+<!-- ============ АКЦИЯ ============ -->
+<section style="padding: 60px;">
+  <div class="promo reveal">
+    <div>
+      <h2>Первое посещение — <em>скидка 10%</em></h2>
+      <p>Запишитесь на консультацию или любую процедуру впервые и получите скидку 10% на первый визит. Консультация косметолога — бесплатно.</p>
+      <a href="#booking" class="btn">Получить скидку</a>
+    </div>
+    <div class="promo-num">
+      <div class="num">-10%</div>
+      <div class="num-lbl">На первый визит</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ОТЗЫВЫ ============ -->
+<section id="reviews">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-label">Что говорят клиенты</div>
+      <h2 class="section-title">Отзывы <em>о нас</em></h2>
+      <p class="section-sub">Нам доверяют более 500 клиентов</p>
+    </div>
+
+    <div class="reviews">
+      <div class="review reveal">
+        <p class="review-text">Хожу уже полгода. Кожа стала заметно чище, поры сузились, тон ровный. Анна — волшебница, всё объясняет и подбирает уход индивидуально.</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop')"></div>
+          <div>
+            <div class="review-name">Ольга К.</div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review reveal">
+        <p class="review-text">Сделала биоревитализацию — эффект потрясающий. Кожа увлажнённая, сияет. Никакой боли, всё аккуратно и профессионально.</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&auto=format&fit=crop')"></div>
+          <div>
+            <div class="review-name">Мария С.</div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review reveal">
+        <p class="review-text">Атмосфера потрясающая: свечи, мягкая музыка, аромат кофе. Уходишь как после спа. И результат — лицо отдохнувшее, отёков нет.</p>
+        <div class="review-author">
+          <div class="review-avatar" style="background-image:url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop')"></div>
+          <div>
+            <div class="review-name">Екатерина В.</div>
+            <div class="review-stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ЗАПИСЬ ============ -->
+<section id="booking" class="booking-section">
+  <div class="booking reveal">
+    <div class="booking-info">
+      <h2>Запишитесь <em>сейчас</em></h2>
+        <div class="contact-line"><span>📞</span> <strong>+7 (952) 581-35-07</strong></div>
+         <p>📲Контакт в тг: @BarsBast</p>
+       <div class="contact-line"><span>📍</span> г. Таганрог, ул. Бакинская, 49</div>
+      <div class="contact-line"><span>🕐</span> Пн–Вс: 10:00 – 18:00</div>
+    </div>
+   </section>
+
+<!-- ============ КОНТАКТЫ ============ -->
+<section id="contacts">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-label">Где нас найти</div>
+      <h2 class="section-title">Контакты</h2>
+    </div>
+
+    <div class="contacts">
+      <div class="contact-card reveal">
+        <span class="contact-icon">📍</span>
+        <h4>Адрес</h4>
+        <p>г. Таганрог,<br>ул. Бакинская, 49</p>
+      </div>
+      <div class="contact-card reveal">
+        <span class="contact-icon">📞</span>
+        <h4>Телефон</h4>
+        <p><a href="tel:+7 (952) 581-35-07">+7 (952) 581-35-07</a></p>
+      </div>
+      <div class="contact-card reveal">
+        <span class="contact-icon">🕐</span>
+        <h4>Часы работы</h4>
+        <p>Пн–Вс: 10:00 – 18:00</p>
+      </div>
+      <div class="contact-card reveal">
+        <span class="contact-icon">✉️</span>
+        <h4>Email</h4>
+        <p><a href="mailto:hello@lumia-beauty.ru">hello@lumia-beauty.ru</a></p>
+      </div>
+    </div>
+
+    <div class="map-wrap reveal">
+  <iframe 
+    src="https://yandex.ru/map-widget/v1/?text=Таганрог,%20улица%20Бакинская,%2049&z=16" 
+    width="100%" 
+    height="100%" 
+    frameborder="0" 
+    allowfullscreen="true">
+  </iframe>
+</div>
+</section>
+
+<!-- ============ ПОДВАЛ ============ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="logo" style="color:#fff; margin-bottom:16px;">
+        <span class="logo-icon">🌷</span>
+        <div>LUMIA<small style="color:#ffd97a;">beauty studio</small></div>
+      </div>
+      <p style="color:#d4c5c5; font-size:14px; font-weight:300; max-width:320px;">
+        Студия косметологии с медицинским подходом. Работаем с 2024 года.
+      </p>
+    </div>
+    <div>
+      <h5>Услуги</h5>
+      <a href="#services">Чистка лица</a>
+      <a href="#services">Пилинги</a>
+      <a href="#services">Уходовые процедуры</a>
+          </div>
+    <div>
+      <h5>Контакты</h5>
+      <a href="tel:+7 (952) 581-35-07">+7 (952) 581-35-07</a>
+      <a href="mailto:hello@lumia-beauty.ru">hello@lumia-beauty.ru</a>
+      <p>Бакинская улица, 49<p>Понедельник–Субота: 10:00 – 18:00</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Lumia Beauty · Сделано с любовью 🌷
+  </div>
+</footer>
+
 <script>
-/* ============================================================
-   БАЛАНС И ОБЩЕЕ
-   ============================================================ */
-let balance = parseInt(localStorage.getItem('casino_balance') || '1000', 10);
-const balanceEl = document.getElementById('balanceVal');
-
-function updateBalance() {
-  if (balance < 0) balance = 0;
-  balanceEl.textContent = balance;
-  localStorage.setItem('casino_balance', balance);
-}
-
-function changeBalance(delta) {
-  balance += delta;
-  updateBalance();
-}
-
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if (id === 'slots') renderReels(slotsState.current, false);
-}
-
-function openGame(id) {
-  showScreen(id);
-  if (id === 'roulette') drawWheel();
-}
-
-/* ============================================================
-   ЗВУК
-   ============================================================ */
-let audioCtx = null;
-function beep(freq, dur, type = 'sine', vol = 0.08) {
-  try {
-    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const o = audioCtx.createOscillator();
-    const g = audioCtx.createGain();
-    o.type = type; o.frequency.value = freq;
-    g.gain.value = vol;
-    o.connect(g); g.connect(audioCtx.destination);
-    o.start();
-    g.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
-    o.stop(audioCtx.currentTime + dur);
-  } catch (e) {}
-}
-function winSound() { beep(660, 0.12); setTimeout(() => beep(880, 0.12), 100); setTimeout(() => beep(1100, 0.2), 200); }
-function loseSound() { beep(220, 0.2, 'sawtooth', 0.05); }
-function jackpotSound() {
-  [523,659,784,1046,1318].forEach((f,i) => setTimeout(() => beep(f, 0.2), i*90));
-}
-
-/* ============================================================
-   КОНФЕТТИ
-   ============================================================ */
-function confetti() {
-  const colors = ['#ffd700','#ff8c00','#ff4444','#4ade80','#4facfe','#ffffff'];
-  for (let i = 0; i < 60; i++) {
-    const c = document.createElement('div');
-    c.className = 'confetti';
-    c.style.left = Math.random() * 100 + 'vw';
-    c.style.top = '-20px';
-    c.style.background = colors[Math.floor(Math.random() * colors.length)];
-    c.style.animation = `fall ${2 + Math.random() * 2}s linear ${Math.random() * 0.4}s forwards`;
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 4500);
-  }
-}
-
-function showResult(id, text, type) {
-  const el = document.getElementById(id);
-  el.textContent = text;
-  el.className = 'result ' + (type || '');
-}
-
-/* ============================================================
-   СЛОТЫ
-   ============================================================ */
-const SYMBOLS = ['🍒','🍋','🍊','🔔','💎','7️⃣'];
-const slotsState = {
-  current: [0, 1, 2],
-  bet: 50,
-  spinning: false
-};
-
-function renderReels(positions, spinning) {
-  const reels = document.querySelectorAll('#reels .reel');
-  reels.forEach((reel, i) => {
-    const strip = reel.querySelector('.reel-strip');
-    strip.innerHTML = '';
-    const idx = positions[i];
-    const seq = [
-      (idx - 1 + SYMBOLS.length) % SYMBOLS.length,
-      idx,
-      (idx + 1) % SYMBOLS.length
-    ];
-    seq.forEach(s => {
-      const d = document.createElement('div');
-      d.className = 'sym';
-      d.textContent = SYMBOLS[s];
-      strip.appendChild(d);
+  // Плавное появление
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
     });
-    strip.style.transform = 'translateY(-86px)';
-    reel.classList.toggle('spinning', spinning);
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Плавная прокрутка к якорям
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
   });
-}
-
-function spinSlots() {
-  if (slotsState.spinning) return;
-  if (balance < slotsState.bet) { showResult('slotsResult', 'Недостаточно фишек!', 'lose'); return; }
-
-  slotsState.spinning = true;
-  document.getElementById('spinBtn').disabled = true;
-  changeBalance(-slotsState.bet);
-  document.getElementById('slotsResult').textContent = '';
-  document.querySelector('#reels').classList.remove('win');
-
-  document.querySelectorAll('#reels .reel').forEach(r => r.classList.add('spinning'));
-
-  const final = [0,0,0];
-  const stops = [700, 1100, 1500];
-  stops.forEach((delay, i) => {
-    setTimeout(() => {
-      const reel = document.querySelectorAll('#reels .reel')[i];
-      reel.classList.remove('spinning');
-      final[i] = Math.floor(Math.random() * SYMBOLS.length);
-      slotsState.current[i] = final[i];
-      renderReels(slotsState.current, false);
-      beep(500 + i * 150, 0.08);
-    }, delay);
-  });
-
-  setTimeout(() => {
-    slotsState.spinning = false;
-    document.getElementById('spinBtn').disabled = false;
-    checkSlotsWin(final);
-  }, 1700);
-}
-
-function checkSlotsWin(pos) {
-  const [a, b, c] = pos.map(i => SYMBOLS[i]);
-  let win = 0, msg = '', type = '';
-
-  if (a === b && b === c) {
-    if (a === '7️⃣') { win = slotsState.bet * 20; msg = 'ДЖЕКПОТ! 7️⃣7️⃣7️⃣ × 20'; type = 'jackpot'; jackpotSound(); confetti(); }
-    else if (a === '💎') { win = slotsState.bet * 10; msg = '💎 × 10!'; type = 'jackpot'; jackpotSound(); confetti(); }
-    else { win = slotsState.bet * 5; msg = `${a}${b}${c} — совпадение × 5!`; type = 'win'; winSound(); }
-  } else if (a === b || b === c || a === c) {
-    win = slotsState.bet * 2;
-    msg = 'Два совпадения — × 2!';
-    type = 'win'; winSound();
-  } else {
-    msg = 'Не повезло — попробуйте снова';
-    type = 'lose'; loseSound();
-  }
-
-  if (win > 0) {
-    changeBalance(win);
-    document.querySelector('#reels').classList.add('win');
-    showResult('slotsResult', msg + ` (+${win})`, type);
-  } else {
-    showResult('slotsResult', msg, type);
-  }
-}
-
-document.querySelectorAll('[data-bet]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-bet]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    slotsState.bet = parseInt(btn.dataset.bet, 10);
-  });
-});
-document.getElementById('spinBtn').addEventListener('click', spinSlots);
-
-/* ============================================================
-   РУЛЕТКА
-   ============================================================ */
-const WHEEL = [
-  {n:0,  color:'green'},
-  {n:32, color:'red'},{n:15, color:'black'},{n:19, color:'red'},{n:4, color:'black'},
-  {n:21, color:'red'},{n:2,  color:'black'},{n:25, color:'red'},{n:17, color:'black'},
-  {n:34, color:'red'},{n:6,  color:'black'},{n:27, color:'red'},{n:13, color:'black'},
-  {n:36, color:'red'},{n:11, color:'black'},{n:30, color:'red'},{n:8,  color:'black'},
-  {n:23, color:'red'},{n:10, color:'black'},{n:5,  color:'red'},{n:24, color:'black'},
-  {n:16, color:'red'},{n:33, color:'black'},{n:1,  color:'red'},{n:20, color:'black'},
-  {n:14, color:'red'},{n:31, color:'black'},{n:9,  color:'red'},{n:22, color:'black'},
-  {n:18, color:'red'},{n:29, color:'black'},{n:7,  color:'red'},{n:28, color:'black'},
-  {n:12, color:'red'},{n:35, color:'black'},{n:3,  color:'red'},{n:26, color:'black'}
-];
-
-let rouletteBet = null;
-let rouletteBetAmount = 50;
-let rouletteSpinning = false;
-let wheelRotation = 0;
-
-function drawWheel() {
-  const canvas = document.getElementById('wheelCanvas');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const cx = W / 2, cy = H / 2;
-  const r = W / 2 - 8;
-  const seg = (Math.PI * 2) / WHEEL.length;
-
-  ctx.clearRect(0, 0, W, H);
-
-  WHEEL.forEach((s, i) => {
-    const start = i * seg - Math.PI / 2;
-    const end = start + seg;
-
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.arc(cx, cy, r, start, end);
-    ctx.closePath();
-
-    if (s.color === 'red') ctx.fillStyle = '#dc2626';
-    else if (s.color === 'black') ctx.fillStyle = '#111';
-    else ctx.fillStyle = '#16a34a';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(255,215,0,0.5)';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(start + seg / 2);
-    ctx.textAlign = 'right';
-    ctx.fillStyle = '#fff';
-    ctx.font = 'bold 26px Arial';
-    ctx.fillText(s.n, r - 18, 9);
-    ctx.restore();
-  });
-}
-
-function spinRoulette() {
-  if (rouletteSpinning || !rouletteBet) return;
-  if (balance < rouletteBetAmount) { showResult('rouletteResult', 'Недостаточно фишек!', 'lose'); return; }
-
-  rouletteSpinning = true;
-  changeBalance(-rouletteBetAmount);
-  document.getElementById('spinRouletteBtn').disabled = true;
-  document.getElementById('rouletteResult').textContent = '';
-
-  const resultIdx = Math.floor(Math.random() * WHEEL.length);
-  const result = WHEEL[resultIdx];
-
-  const segDeg = 360 / WHEEL.length;
-  // Сдвиг на полсектора, чтобы стрелка попала в центр выигрышного сектора
-  const targetDeg = 360 * 5 + (360 - resultIdx * segDeg) - segDeg / 2;
-  wheelRotation += targetDeg;
-
-  const wheelEl = document.getElementById('wheelCanvas');
-  wheelEl.style.transform = `rotate(${wheelRotation}deg)`;
-
-  let ticks = 0;
-  const tickInt = setInterval(() => { beep(1200, 0.02, 'square', 0.03); if (++ticks > 30) clearInterval(tickInt); }, 130);
-
-  setTimeout(() => {
-    clearInterval(tickInt);
-    rouletteSpinning = false;
-    document.getElementById('spinRouletteBtn').disabled = false;
-    checkRouletteWin(result);
-  }, 4100);
-}
-
-function checkRouletteWin(result) {
-  let win = 0, msg = '', type = '';
-
-  if (rouletteBet === 'red' && result.color === 'red') { win = rouletteBetAmount * 2; msg = `Выпало ${result.n} — КРАСНОЕ. +${win}`; type = 'win'; }
-  else if (rouletteBet === 'black' && result.color === 'black') { win = rouletteBetAmount * 2; msg = `Выпало ${result.n} — ЧЁРНОЕ. +${win}`; type = 'win'; }
-  else if (rouletteBet === 'green' && result.color === 'green') { win = rouletteBetAmount * 14; msg = `ЗЕРО! ${result.n} — × 14. +${win}`; type = 'jackpot'; confetti(); }
-  else { msg = `Выпало ${result.n} (${result.color === 'red' ? 'красное' : result.color === 'black' ? 'чёрное' : 'зеро'}) — не угадали`; type = 'lose'; }
-
-  if (win > 0) {
-    changeBalance(win);
-    if (type === 'jackpot') jackpotSound(); else winSound();
-    showResult('rouletteResult', msg, type);
-  } else {
-    loseSound();
-    showResult('rouletteResult', msg, type);
-  }
-}
-
-document.querySelectorAll('[data-rbet]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-rbet]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    rouletteBetAmount = parseInt(btn.dataset.rbet, 10);
-  });
-});
-document.querySelectorAll('#rouletteBets .bet-opt').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('#rouletteBets .bet-opt').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    rouletteBet = btn.dataset.bet;
-    document.getElementById('spinRouletteBtn').disabled = false;
-    beep(700, 0.06);
-  });
-});
-document.getElementById('spinRouletteBtn').addEventListener('click', spinRoulette);
-
-/* ============================================================
-   БЛЭКДЖЕК
-   ============================================================ */
-let bjState = {
-  deck: [],
-  player: [],
-  dealer: [],
-  bet: 50,
-  active: false
-};
-
-function newDeck() {
-  const suits = ['♠','♥','♦','♣'];
-  const ranks = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-  const deck = [];
-  suits.forEach(s => ranks.forEach(r => deck.push({s, r})));
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
-  return deck;
-}
-
-function cardValue(card) {
-  if (['J','Q','K'].includes(card.r)) return 10;
-  if (card.r === 'A') return 11;
-  return parseInt(card.r, 10);
-}
-
-function handScore(hand) {
-  let sum = 0, aces = 0;
-  hand.forEach(c => { sum += cardValue(c); if (c.r === 'A') aces++; });
-  while (sum > 21 && aces > 0) { sum -= 10; aces--; }
-  return sum;
-}
-
-function cardHTML(card, hidden = false) {
-  if (hidden) return `<div class="card back"></div>`;
-  const red = ['♥','♦'].includes(card.s);
-  return `<div class="card ${red ? 'red' : ''}">
-    <div class="top">${card.r}<br>${card.s}</div>
-    <div class="center">${card.s}</div>
-    <div class="bottom">${card.r}<br>${card.s}</div>
-  </div>`;
-}
-
-function renderBlackjack(hideDealer = true) {
-  const dealerEl = document.getElementById('dealerCards');
-  const playerEl = document.getElementById('playerCards');
-  dealerEl.innerHTML = bjState.dealer.map((c, i) => cardHTML(c, hideDealer && i === 1)).join('');
-  playerEl.innerHTML = bjState.player.map(c => cardHTML(c)).join('');
-
-  document.getElementById('playerScore').textContent = bjState.player.length ? `Очки: ${handScore(bjState.player)}` : '';
-  if (bjState.dealer.length) {
-    if (hideDealer) {
-      document.getElementById('dealerScore').textContent = `Очки: ${cardValue(bjState.dealer[0])} + ?`;
-    } else {
-      document.getElementById('dealerScore').textContent = `Очки: ${handScore(bjState.dealer)}`;
-    }
-  } else {
-    document.getElementById('dealerScore').textContent = '';
-  }
-}
-
-function startBlackjack() {
-  if (balance < bjState.bet) { showResult('bjResult', 'Недостаточно фишек!', 'lose'); return; }
-  changeBalance(-bjState.bet);
-  bjState.deck = newDeck();
-  bjState.player = [bjState.deck.pop(), bjState.deck.pop()];
-  bjState.dealer = [bjState.deck.pop(), bjState.deck.pop()];
-  bjState.active = true;
-  renderBlackjack(true);
-  showResult('bjResult', '', '');
-
-  document.getElementById('bjStartBtn').style.display = 'none';
-  document.getElementById('bjHitBtn').style.display = '';
-  document.getElementById('bjStandBtn').style.display = '';
-
-  beep(600, 0.08); setTimeout(() => beep(800, 0.08), 100);
-}
-
-function bjHit() {
-  if (!bjState.active) return;
-  bjState.player.push(bjState.deck.pop());
-  renderBlackjack(true);
-  beep(700, 0.06);
-  if (handScore(bjState.player) > 21) {
-    endBlackjack('lose', 'Перебор! У вас больше 21.');
-  }
-}
-
-function bjStand() {
-  if (!bjState.active) return;
-  while (handScore(bjState.dealer) < 17) {
-    bjState.dealer.push(bjState.deck.pop());
-  }
-  renderBlackjack(false);
-
-  const p = handScore(bjState.player);
-  const d = handScore(bjState.dealer);
-  let msg, type;
-
-  if (d > 21) { msg = `Дилер перебрал (${d}). Вы выиграли +${bjState.bet * 2}!`; type = 'win'; changeBalance(bjState.bet * 2); }
-  else if (p > d) { msg = `Вы ${p} — дилер ${d}. Победа! +${bjState.bet * 2}`; type = 'win'; changeBalance(bjState.bet * 2); }
-  else if (p === d) { msg = `Ничья (${p}). Ставка возвращена.`; type = ''; changeBalance(bjState.bet); }
-  else { msg = `Вы ${p} — дилер ${d}. Дилер победил.`; type = 'lose'; }
-
-  endBlackjack(type, msg);
-}
-
-function endBlackjack(type, msg) {
-  bjState.active = false;
-  document.getElementById('bjHitBtn').style.display = 'none';
-  document.getElementById('bjStandBtn').style.display = 'none';
-  document.getElementById('bjStartBtn').style.display = '';
-  document.getElementById('bjStartBtn').textContent = 'ИГРАТЬ СНОВА';
-
-  if (type === 'win') { winSound(); } else if (type === 'lose') { loseSound(); }
-  showResult('bjResult', msg, type);
-}
-
-document.querySelectorAll('[data-bjbet]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-bjbet]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    bjState.bet = parseInt(btn.dataset.bjbet, 10);
-  });
-});
-document.getElementById('bjStartBtn').addEventListener('click', startBlackjack);
-document.getElementById('bjHitBtn').addEventListener('click', bjHit);
-document.getElementById('bjStandBtn').addEventListener('click', bjStand);
-
-/* ============================================================
-   РАКЕТА
-   ============================================================ */
-let rocketState = {
-  bet: 50,
-  multiplier: 1.00,
-  active: false,
-  timer: null
-};
-
-const rocketEl = document.getElementById('rocketEl');
-const rocketMultiplierEl = document.getElementById('rocketMultiplier');
-const rocketStatusEl = document.getElementById('rocketStatus');
-const rocketStartBtn = document.getElementById('rocketStartBtn');
-const rocketCashoutBtn = document.getElementById('rocketCashoutBtn');
-
-function resetRocketVisual() {
-  rocketEl.textContent = '🚀';
-  rocketEl.style.left = '20px';
-  rocketEl.style.bottom = '20px';
-  rocketEl.style.transform = 'rotate(0deg)';
-  rocketEl.classList.remove('flame');
-  rocketMultiplierEl.textContent = '1.00x';
-  rocketMultiplierEl.style.color = '#ffd700';
-  rocketMultiplierEl.classList.remove('crashed');
-}
-
-function startRocket() {
-  if (rocketState.active) return;
-  if (balance < rocketState.bet) {
-    showResult('rocketResult', 'Недостаточно фишек!', 'lose');
-    return;
-  }
-
-  changeBalance(-rocketState.bet);
-  rocketState.active = true;
-  rocketState.multiplier = 1.00;
-
-  resetRocketVisual();
-  rocketEl.classList.add('flame');
-
-  document.getElementById('rocketResult').textContent = '';
-  rocketStartBtn.style.display = 'none';
-  rocketCashoutBtn.style.display = 'block';
-  rocketCashoutBtn.disabled = false;
-  rocketStatusEl.textContent = 'Летим! Успей забрать...';
-
-  // Точка краха — заранее
-  // Math.pow(Math.random(), 2) даёт перекос в сторону меньших значений:
-  // часто крах ~1-3x, реже 10x+, очень редко >20x
-  const crashPoint = 1 + Math.pow(Math.random(), 2) * 25;
-
-  rocketState.timer = setInterval(() => {
-    // Рост множителя (ускоряется)
-    rocketState.multiplier += 0.01 + rocketState.multiplier * 0.005;
-    const m = rocketState.multiplier;
-
-    rocketMultiplierEl.textContent = m.toFixed(2) + 'x';
-
-    // Смена цвета
-    if (m > 5) rocketMultiplierEl.style.color = '#ff8c00';
-    if (m > 10) rocketMultiplierEl.style.color = '#ef4444';
-
-    // Визуальный полёт
-    const progress = Math.min((m - 1) / 10, 1);   // 0..1
-    const leftPx = 20 + progress * 240;           // сдвиг вправо
-    const bottomPx = 20 + progress * 160;         // сдвиг вверх
-    rocketEl.style.left = leftPx + 'px';
-    rocketEl.style.bottom = bottomPx + 'px';
-    rocketEl.style.transform = `rotate(${progress * 45}deg)`;
-
-    // Тикающий звук (редко)
-    if (Math.floor(m * 10) % 5 === 0) beep(1200, 0.01, 'square', 0.02);
-
-    // Проверка краха
-    if (m >= crashPoint) {
-      crashRocket();
-    }
-  }, 80);
-}
-
-function crashRocket() {
-  clearInterval(rocketState.timer);
-  rocketState.active = false;
-  rocketState.timer = null;
-
-  // Взрыв
-  rocketEl.textContent = '💥';
-  rocketEl.classList.remove('flame');
-  rocketMultiplierEl.textContent = 'ВЗРЫВ!';
-  rocketMultiplierEl.style.color = '#ef4444';
-  rocketMultiplierEl.classList.add('crashed');
-
-  // Вспышка
-  const explosion = document.createElement('div');
-  explosion.className = 'rocket-explosion';
-  explosion.textContent = '💥';
-  explosion.style.left = rocketEl.style.left;
-  explosion.style.bottom = rocketEl.style.bottom;
-  document.getElementById('rocketField').appendChild(explosion);
-  setTimeout(() => explosion.remove(), 700);
-
-  showResult('rocketResult', `💥 Взрыв на ${rocketState.multiplier.toFixed(2)}x. Ставка сгорела.`, 'lose');
-  loseSound();
-
-  rocketStartBtn.style.display = 'block';
-  rocketStartBtn.textContent = 'ИГРАТЬ СНОВА';
-  rocketCashoutBtn.style.display = 'none';
-  rocketStatusEl.textContent = 'Попробуй ещё раз';
-}
-
-function cashoutRocket() {
-  if (!rocketState.active) return;
-
-  clearInterval(rocketState.timer);
-  rocketState.active = false;
-  rocketState.timer = null;
-
-  const win = Math.floor(rocketState.bet * rocketState.multiplier);
-  changeBalance(win);
-
-  rocketEl.classList.remove('flame');
-  rocketMultiplierEl.style.color = '#4ade80';
-  rocketMultiplierEl.textContent = rocketState.multiplier.toFixed(2) + 'x ✅';
-
-  showResult('rocketResult', `🚀 Успел забрать! +${win} (${rocketState.multiplier.toFixed(2)}x)`, 'win');
-  winSound();
-
-  rocketStartBtn.style.display = 'block';
-  rocketStartBtn.textContent = 'ИГРАТЬ СНОВА';
-  rocketCashoutBtn.style.display = 'none';
-  rocketStatusEl.textContent = 'Отличный забор! Можешь сыграть ещё';
-}
-
-document.querySelectorAll('[data-rocketbet]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('[data-rocketbet]').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    rocketState.bet = parseInt(btn.dataset.rocketbet, 10);
-  });
-});
-rocketStartBtn.addEventListener('click', startRocket);
-rocketCashoutBtn.addEventListener('click', cashoutRocket);
-
-/* ============================================================
-   ИНИЦИАЛИЗАЦИЯ
-   ============================================================ */
-updateBalance();
-renderReels([0,1,2], false);
 </script>
+
 </body>
 </html>
