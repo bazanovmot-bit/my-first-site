@@ -236,6 +236,7 @@
     display: flex; justify-content: space-between; align-items: center;
     padding-top: 20px;
     border-top: 1px dashed rgba(184,134,140,0.3);
+    margin-bottom: 15px;
   }
   .service-price {
     color: #b8868c; font-weight: 700;
@@ -246,44 +247,24 @@
     font-size: 13px; color: #9a8585;
     display: flex; align-items: center; gap: 6px;
   }
-
-  /* ---------- МАСТЕРА ---------- */
-  .team {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 30px;
-  }
-  .master {
-    background: #fff;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 15px 50px rgba(122,79,90,0.1);
-    transition: all 0.4s;
+  /* Новая кнопка записи в карточке услуги */
+  .btn-service {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid #b8868c;
+    color: #b8868c;
+    border-radius: 12px;
     text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
   }
-  .master:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 60px rgba(122,79,90,0.2);
-  }
-  .master-img { aspect-ratio: 1; overflow: hidden; }
-  .master-img img {
-    width: 100%; height: 100%; object-fit: cover;
-    transition: transform 0.7s;
-  }
-  .master:hover .master-img img { transform: scale(1.06); }
-  .master-body { padding: 26px; }
-  .master h3 {
-    font-size: 22px; color: #7a4f5a;
-    font-weight: 600; margin-bottom: 4px;
-  }
-  .master-role {
-    color: #b8868c; font-size: 12px;
-    letter-spacing: 2px; text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .master-desc {
-    color: #6b5656; font-size: 13px;
-    font-weight: 300; line-height: 1.6;
+  .btn-service:hover {
+    background: #b8868c;
+    color: #fff;
   }
 
   /* ---------- АКЦИЯ ---------- */
@@ -368,7 +349,7 @@
   }
   .review-stars { color: #d4af37; font-size: 14px; letter-spacing: 2px; }
 
-  /* ---------- ЗАПИСЬ ---------- */
+  /* ---------- ЗАПИСЬ (ФОРМА) ---------- */
   .booking-section {
     background: linear-gradient(160deg, #f5e6e8, #fdfbf9);
     padding: 100px 60px;
@@ -382,7 +363,7 @@
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 50px;
-    align-items: center;
+    align-items: start;
   }
   .booking-info h2 {
     font-size: 40px; color: #7a4f5a;
@@ -566,7 +547,6 @@
   </div>
   <nav>
     <a href="#services">Услуги</a>
-    
     <a href="#reviews">Отзывы</a>
     <a href="#contacts">Контакты</a>
     <a href="tel:+79525813507" class="nav-phone">+7 952 581-35-07</a>
@@ -650,6 +630,8 @@
             <div class="service-price">3 500 ₽</div>
             <div class="service-time">⏱ 60 мин</div>
           </div>
+          <!-- КНОПКА ЗАПИСИ НА УСЛУГУ -->
+          <a href="#booking" class="btn-service" onclick="selectService('Чистка лица')">Записаться</a>
         </div>
       </div>
 
@@ -664,10 +646,11 @@
             <div class="service-price">4 000 ₽</div>
             <div class="service-time">⏱ 45 мин</div>
           </div>
+          <!-- КНОПКА ЗАПИСИ НА УСЛУГУ -->
+          <a href="#booking" class="btn-service" onclick="selectService('Пилинги')">Записаться</a>
         </div>
       </div>
 
-      
       <div class="service reveal">
         <div class="service-img">
           <img src="https://fongrad.ru/upload/iblock/9fa/gvgu6bt3410ebba1b0d3dgi7if96blk7/033-Edit.jpg" alt="Уход">
@@ -679,27 +662,21 @@
             <div class="service-price">2 500 ₽</div>
             <div class="service-time">⏱ 60 мин</div>
           </div>
+          <!-- КНОПКА ЗАПИСИ НА УСЛУГУ -->
+          <a href="#booking" class="btn-service" onclick="selectService('Уходовые процедуры')">Записаться</a>
         </div>
       </div>
+    </div>
+  </div>
+</section>
 
-              </div>
-      </div>
-
-             </div>
-        </section>
-
-<!-- ============ МАСТЕРА ============ -->
-
-
-
-
- <!-- ============ АКЦИЯ ============ -->
+<!-- ============ АКЦИЯ ============ -->
 <section style="padding: 60px;">
   <div class="promo reveal">
     <div>
       <h2>Первое посещение — <em>скидка 10%</em></h2>
       <p>Запишитесь на консультацию или любую процедуру впервые и получите скидку 10% на первый визит. Консультация косметолога — бесплатно.</p>
-      <a href="#booking" class="btn">Получить скидку</a>
+      <a href="#booking" class="btn" onclick="selectService('Консультация косметолога')">Получить скидку</a>
     </div>
     <div class="promo-num">
       <div class="num">-10%</div>
@@ -756,15 +733,44 @@
 
 <!-- ============ ЗАПИСЬ ============ -->
 <section id="booking" class="booking-section">
- <div class="booking-info">
-  <h2>Запишитесь <em>сейчас</em></h2>
-  <p>Заполните форму, и мы свяжемся с вами в течение 15 минут, чтобы подтвердить запись.</p>
-  <div class="contact-line">📞 <a href="tel:+79525813507"><strong>+7 952 581-35-07</strong></a></div>
-  <div class="contact-line">📲 Контакт в ТГ: <a href="https://t.me/BarsBast" target="_blank">@BarsBast</a></div>
-  <div class="contact-line">📍 г. Таганрог, ул. Бакинская, 49</div>
-  <div class="contact-line">🕐 Пн–Сб: 10:00 – 18:00</div>
-</div>
-    </section>
+  <div class="booking reveal">
+    <div class="booking-info">
+      <h2>Запишитесь <em>сейчас</em></h2>
+      <p>Выберите услугу и оставьте номер телефона. Мы перезвоним в течение 15 минут.</p>
+      
+      <div class="contact-line">📲 Контакт в ТГ: <a href="https://t.me/BarsBast" target="_blank">@BarsBast</a></div>
+      <div class="contact-line">📞 <a href="tel:+79525813507"><strong>+7 952 581-35-07</strong></a></div>
+      <div class="contact-line">📍 г. Таганрог, ул. Бакинская, 49</div>
+      <div class="contact-line">🕐 Пн–Вс: 10:00 – 18:00</div>
+    </div>
+
+    <!-- ФОРМА РЕГИСТРАЦИИ (ЗАПИСИ) -->
+    <form action="/booking" method="POST">
+      <div class="form-group">
+        <label for="name">Ваше имя</label>
+        <input type="text" id="name" name="name" placeholder="Анна" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="phone">Номер телефона</label>
+        <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
+      </div>
+
+      <div class="form-group">
+        <label for="service">Выберите услугу</label>
+        <select id="service" name="service" required>
+          <option value="">-- Выберите из списка --</option>
+          <option value="Чистка лица">Чистка лица (3 500 ₽)</option>
+          <option value="Пилинги">Пилинги (4 000 ₽)</option>
+          <option value="Уходовые процедуры">Уходовые процедуры (2 500 ₽)</option>
+          <option value="Консультация косметолога">Консультация косметолога (бесплатно)</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn">Отправить заявку</button>
+    </form>
+  </div>
+</section>
 
 <!-- ============ КОНТАКТЫ ============ -->
 <section id="contacts">
@@ -788,7 +794,7 @@
       <div class="contact-card reveal">
         <span class="contact-icon">🕐</span>
         <h4>Часы работы</h4>
-        <p>Пн–Сб: 10:00 – 18:00</p>
+        <p>Пн–Вс: 10:00 – 18:00</p>
       </div>
       <div class="contact-card reveal">
         <span class="contact-icon">✉️</span>
@@ -823,13 +829,13 @@
       <a href="#services">Чистка лица</a>
       <a href="#services">Пилинги</a>
       <a href="#services">Уходовые процедуры</a>
-        </div>
+    </div>
     <div>
       <h5>Контакты</h5>
       <a href="tel:+79525813507">+7 952 581-35-07</a>
       <a href="mailto:hello@lumia-beauty.ru">hello@lumia-beauty.ru</a>
       <p>г. Таганрог, ул. Бакинская, 49</p>
-      <p>Пн–Сб: 10:00 – 18:00</p>
+      <p>Пн–Вс: 10:00 – 18:00</p>
     </div>
   </div>
   <div class="footer-bottom">
@@ -838,6 +844,7 @@
 </footer>
 
 <script>
+  // Плавное появление
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -849,6 +856,7 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+  // Плавная прокрутка
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', (e) => {
       const target = document.querySelector(link.getAttribute('href'));
@@ -858,8 +866,20 @@
       }
     });
   });
+
+  // ФУНКЦИЯ ДЛЯ АВТО-ВЫБОРА УСЛУГИ ИЗ КАРТОЧКИ
+  function selectService(serviceName) {
+    const select = document.getElementById('service');
+    if (select) {
+      for (let option of select.options) {
+        if (option.value === serviceName) {
+          option.selected = true;
+          break;
+        }
+      }
+    }
+  }
 </script>
 
 </body>
 </html>
- 
