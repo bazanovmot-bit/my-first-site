@@ -11,17 +11,19 @@ TELEGRAM_BOT_TOKEN = "9047299447:AAFE3uX6nG-PFU5ighq0EsjKByrtKC-IbCc"
 TELEGRAM_CHAT_ID = "5268550316"
 
 def send_tg_notification(phone):
-    text = f"🌸 *Новая заявка с сайта!*\n\n📞 Телефон: {phone}"
+    text = f"🌸 Новая заявка с сайта!\n\n📞 Телефон: {phone}"
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
         "chat_id": TELEGRAM_CHAT_ID,
-        "text": text,
-        "parse_mode": "Markdown"
+        "text": text
     }
     try:
-        requests.post(url, json=payload, timeout=10)
+        response = requests.post(url, json=payload, timeout=10)
+        # Эти строки будут видны в логах Render
+        print(f"=== Статус Telegram: {response.status_code}")
+        print(f"=== Ответ Telegram: {response.text}")
     except Exception as e:
-        print(f"Ошибка Telegram: {e}")
+        print(f"=== Ошибка отправки: {e}")
 
 @app.route("/")
 def home():
