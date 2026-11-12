@@ -247,7 +247,6 @@
     font-size: 13px; color: #9a8585;
     display: flex; align-items: center; gap: 6px;
   }
-  /* Новая кнопка записи в карточке услуги */
   .btn-service {
     display: block;
     width: 100%;
@@ -563,6 +562,7 @@
       с опытом более 10 лет. Мы создаём естественную красоту, а не шаблонный образ.
     </p>
     <div class="hero-actions">
+      <!-- Кнопка ведет на якорь #booking -->
       <a href="#booking" class="btn">Записаться онлайн</a>
       <a href="#services" class="btn outline">Услуги</a>
     </div>
@@ -630,7 +630,7 @@
             <div class="service-price">3 500 ₽</div>
             <div class="service-time">⏱ 60 мин</div>
           </div>
-          <!-- КНОПКА ЗАПИСИ НА УСЛУГУ -->
+          <!-- Кнопка ведет на #booking и выбирает услугу -->
           <a href="#booking" class="btn-service" onclick="selectService('Чистка лица')">Записаться</a>
         </div>
       </div>
@@ -646,7 +646,6 @@
             <div class="service-price">4 000 ₽</div>
             <div class="service-time">⏱ 45 мин</div>
           </div>
-          <!-- КНОПКА ЗАПИСИ НА УСЛУГУ -->
           <a href="#booking" class="btn-service" onclick="selectService('Пилинги')">Записаться</a>
         </div>
       </div>
@@ -662,7 +661,6 @@
             <div class="service-price">2 500 ₽</div>
             <div class="service-time">⏱ 60 мин</div>
           </div>
-          <!-- КНОПКА ЗАПИСИ НА УСЛУГУ -->
           <a href="#booking" class="btn-service" onclick="selectService('Уходовые процедуры')">Записаться</a>
         </div>
       </div>
@@ -732,61 +730,75 @@
 </section>
 
 <!-- ============ ЗАПИСЬ ============ -->
-<form action="/booking" method="POST">
-    <div class="form-group">
+<!-- Именно к этому ID ведут все кнопки -->
+<section id="booking" class="booking-section">
+  <div class="booking reveal">
+    <div class="booking-info">
+      <h2>Запишитесь <em>сейчас</em></h2>
+      <p>Выберите услугу, дату и время. Мы перезвоним в течение 15 минут.</p>
+      
+      <div class="contact-line">📲 Контакт в ТГ: <a href="https://t.me/BarsBast" target="_blank">@BarsBast</a></div>
+      <div class="contact-line">📞 <a href="tel:+79525813507"><strong>+7 952 581-35-07</strong></a></div>
+      <div class="contact-line">📍 г. Таганрог, ул. Бакинская, 49</div>
+      <div class="contact-line">🕐 Пн–Вс: 10:00 – 18:00</div>
+    </div>
+
+    <!-- ФОРМА ЗАПИСИ -->
+    <form action="/booking" method="POST">
+      <div class="form-group">
         <label for="name">Ваше имя</label>
         <input type="text" id="name" name="name" placeholder="Анна" required>
-    </div>
-    
-    <div class="form-group">
+      </div>
+      
+      <div class="form-group">
         <label for="phone">Номер телефона</label>
         <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required>
-    </div>
+      </div>
 
-    <div class="form-group">
+      <div class="form-group">
         <label for="service">Выберите услугу</label>
         <select id="service" name="service" required>
-            <option value="">-- Выберите из списка --</option>
-            <option value="Чистка лица">Чистка лица (3 500 ₽)</option>
-            <option value="Пилинги">Пилинги (4 000 ₽)</option>
-            <option value="Уходовые процедуры">Уходовые процедуры (2 500 ₽)</option>
-            <option value="Консультация косметолога">Консультация косметолога (бесплатно)</option>
+          <option value="">-- Выберите из списка --</option>
+          <option value="Чистка лица">Чистка лица (3 500 ₽)</option>
+          <option value="Пилинги">Пилинги (4 000 ₽)</option>
+          <option value="Уходовые процедуры">Уходовые процедуры (2 500 ₽)</option>
+          <option value="Консультация косметолога">Консультация косметолога (бесплатно)</option>
         </select>
-    </div>
+      </div>
 
-    <!-- Выбор даты -->
-    <div class="form-group">
+      <div class="form-group">
         <label for="date">Выберите дату</label>
         <input type="date" id="date" name="date" required>
-    </div>
+      </div>
 
-    <!-- Выбор времени -->
-    <div class="form-group">
+      <div class="form-group">
         <label for="time">Удобное время</label>
         <select id="time" name="time" required>
-            <option value="">-- Выберите время --</option>
-            <option value="10:00">10:00</option>
-            <option value="10:30">10:30</option>
-            <option value="11:00">11:00</option>
-            <option value="11:30">11:30</option>
-            <option value="12:00">12:00</option>
-            <option value="12:30">12:30</option>
-            <option value="13:00">13:00</option>
-            <option value="13:30">13:30</option>
-            <option value="14:00">14:00</option>
-            <option value="14:30">14:30</option>
-            <option value="15:00">15:00</option>
-            <option value="15:30">15:30</option>
-            <option value="16:00">16:00</option>
-            <option value="16:30">16:30</option>
-            <option value="17:00">17:00</option>
-            <option value="17:30">17:30</option>
-            <option value="18:00">18:00</option>
+          <option value="">-- Выберите время --</option>
+          <option value="10:00">10:00</option>
+          <option value="10:30">10:30</option>
+          <option value="11:00">11:00</option>
+          <option value="11:30">11:30</option>
+          <option value="12:00">12:00</option>
+          <option value="12:30">12:30</option>
+          <option value="13:00">13:00</option>
+          <option value="13:30">13:30</option>
+          <option value="14:00">14:00</option>
+          <option value="14:30">14:30</option>
+          <option value="15:00">15:00</option>
+          <option value="15:30">15:30</option>
+          <option value="16:00">16:00</option>
+          <option value="16:30">16:30</option>
+          <option value="17:00">17:00</option>
+          <option value="17:30">17:30</option>
+          <option value="18:00">18:00</option>
         </select>
-    </div>
+      </div>
 
-    <button type="submit" class="btn">Отправить заявку</button>
-</form>
+      <button type="submit" class="btn">Отправить заявку</button>
+    </form>
+  </div>
+</section>
 
 <!-- ============ КОНТАКТЫ ============ -->
 <section id="contacts">
